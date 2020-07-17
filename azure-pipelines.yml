@@ -18,6 +18,15 @@ steps:
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
 
+
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Visual Studio Enterprise with MSDN(b92634b9-9d23-4a48-8f89-5173568e2bac)'
@@ -26,5 +35,5 @@ steps:
     deployToSlotOrASE: true
     resourceGroupName: 'crayfish'
     slotName: 'dev'
-    package: '$(System.DefaultWorkingDirectory)/**/*'
+    package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     deploymentMethod: 'auto'
