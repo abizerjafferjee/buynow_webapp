@@ -17,3 +17,14 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise with MSDN(b92634b9-9d23-4a48-8f89-5173568e2bac)'
+    appType: 'webApp'
+    appName: 'crayfish-alpha'
+    deployToSlotOrASE: true
+    resourceGroupName: 'crayfish'
+    slotName: 'dev'
+    package: '$(System.DefaultWorkingDirectory)/**/*'
+    deploymentMethod: 'auto'
