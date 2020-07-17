@@ -6,9 +6,19 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+- task: NodeTool@0
+  inputs:
+    versionSpec: ‘8.x’
+  displayName: ‘Install Node.js’
+- script: npm install
+  displayName: ‘npm install’
+- script: npm run build
+  displayName: ‘npm run build’
+
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(Build.SourcesDirectory)'
+    rootFolderOrFile: '$(Build.SourcesDirectory)/dist'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
