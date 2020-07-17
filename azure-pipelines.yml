@@ -31,7 +31,6 @@ steps:
     appName: 'crayfish-alpha'
     deployToSlotOrASE: true
     resourceGroupName: 'crayfish'
-    slotName: 'dev'
     package: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     deploymentMethod: 'zipDeploy'
 
