@@ -31,34 +31,37 @@ module.exports = {
             {
                 test: /\.(scss|css|sass)$/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        // translates CSS into CommonJS
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        // Runs compiled CSS through postcss for vendor prefixing
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true
-                        }
-                    },
-                    {
-                        // compiles Sass to CSS
-                        loader: 'sass-loader',
-                        options: {
-                            outputStyle: 'expanded',
-                            sourceMap: true,
-                            sourceMapContents: true
-                        }
-                    }
-                ]
-            },
+            //         {
+            //             loader: MiniCssExtractPlugin.loader
+            //         },
+                     {
+                         // translates CSS into CommonJS
+                         loader: 'css-loader',
+                         options: {
+                             sourceMap: true
+                         }
+                     }
+            //         ,
+            //         // {
+            //         //     // Runs compiled CSS through postcss for vendor prefixing
+            //         //     loader: 'postcss-loader',
+            //         //     options: {
+            //         //         options: {},
+            //         //     }
+            //         // }
+            //         ,
+            //         {
+            //             // compiles Sass to CSS
+            //             loader: 'sass-loader',
+            //             options: {
+            //                 outputStyle: 'expanded',
+            //                 sourceMap: true,
+            //                 sourceMapContents: true
+            //             }
+            //         }
+                 ]
+            }
+            ,
             {
                 // Load all images as base64 encoding if they are smaller than 8192 bytes
                 test: /\.(png|jpg|gif)$/,
@@ -81,17 +84,12 @@ module.exports = {
                         loader: 'file-loader',
                     }
                 ]
-            }
-            ,
+            },
             {
-                //Load all images
-                test: /\.(png|jpe?g|gif)$/i,
-                use: [
-                  {
-                    loader: 'file-loader',
-                  },
-                ],
-              },
+                test: /\.html$/,
+                exclude: /node_modules/,
+                loader: 'html-loader'
+            }
         ]
     },
     plugins: [
