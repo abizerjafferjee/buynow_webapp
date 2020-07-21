@@ -1,1 +1,3 @@
-# crayfish
+# Crayfish
+
+Initial streaming product
