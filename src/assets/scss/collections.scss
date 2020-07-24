@@ -1,0 +1,31 @@
+.collection-container {
+  height: 300px;
+}
+
+.collection-header {
+  font-weight: Bold;
+  font-size: 66px;
+  color: black;
+}
+
+.collection-text {
+  font-size: 28px;
+  color: black;
+}
+
+.collection-form {
+  width: 100%;
+}
+
+@media screen and (max-width: 500px){
+  .collection-header {
+    font-weight: Bold;
+    font-size: 40px;
+    color: white;
+  }
+
+  .collection-text {
+    font-size: 18px;
+    color: white;
+  }
+}
