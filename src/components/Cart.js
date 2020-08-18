@@ -75,8 +75,7 @@ function Cart(props) {
             <Button.Group floated='right'>
                 <Button primary as={Link} to='/'>Continue shopping</Button>
                 <Button.Or />
-                <Button>No action yet</Button>
-                {/* <Button color='red' disabled={items.length <= 0} onClick={(e) => props.nextStep()}>Next step</Button> */}
+                <Button color='red' disabled={items.length <= 0} onClick={(e) => props.nextStep()}>Next step</Button>
             </Button.Group>
 
         </div>
