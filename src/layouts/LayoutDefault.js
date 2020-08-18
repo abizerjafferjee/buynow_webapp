@@ -1,13 +1,14 @@
 import React from 'react';
 
-import Front from '../components/Front'
-import Footer from '../components/Footer';
+// import Front from '../components/Front'
+import Header from '../components/Navs/Header';
+import Footer from '../components/Navs/Footer';
 
 function LayoutDefault(props) {
 
     return (
         <>
-            <Front />
+            <Header />
             <main>
                 {props.children}
             </main>

@@ -1,35 +1,54 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types'
+import _ from 'lodash'
+import { Card } from 'semantic-ui-react'
 
 import Input from "./Input";
 import GridGenerator from "./GridGenerator";
 
-function Collections() {
+function ShowList() {
 
     const [search, setSearch] = useState('')
-    const [collections, setCollections] = useState([
-        {title:"Billy strings", description: "Live from the basement", url:""},
-        {title:"Guitar hero", description: "Live from the studio", url:""},
-        {title:"MnM", description: "Live from the garage", url:""},
-        {title:"Magic beans", description: "Live from madison square", url:""},
-        {title:"The goose", description: "Live from city hall", url:""},
-        {title:"Aquaphina", description: "Live from the prisons", url:""},
-        {title:"Mc Gee", description: "Live from whererever", url:""},
-        {title:"Mr. OG", description: "Live!", url:""}
-    ])
+    const [collections, setCollections] = useState([])
     const [searchError, setSearchError] = useState(false)
     const postPerRow = window.innerWidth < 500 ? 1 : 3
+    const serverUrl = 'http://localhost:8000'
+
+    function getCollections(url) {
+        fetch(url)
+            .then(function(response) {
+                return response.json()
+            })
+            .then(function(data) {
+                setCollections(data)
+                setSearchError(false)
+            })
+            .catch(function(response) {
+                setSearchError(true)
+            })
+    }
 
     useEffect(() => {
-        console.log('hello')
+        const url = `${serverUrl}/shows/show/`
+        getCollections(url)
     }, [])
 
     function handleChange(event) {
-        console.log('change')
+        const {id, value} = event.target
+        if (id === 'search-collections') {
+            setSearch(value)
+        }
     }
 
     function handleSubmit(event) {
         event.preventDefault()
-        console.log('submit')
+        const url = `${serverUrl}/shows/show?search=${search}&search_fields=title`
+        getCollections(url)
+    }
+
+    function addToCart(show) {
+        console.log(show)
+        console.log("cart to cart")
     }
 
     return (
@@ -59,12 +78,12 @@ function Collections() {
                         return (
                             <div key={index} className="card m-1">
                                 <div className="card-body">
-                                    <a href={value.url} className="card-title text-primary">
+                                    <a href="" className="card-title text-primary">
                                         {value.title}
                                     </a>
-                                    <div className="card-text">
-                                        {value.description}
-                                    </div>
+                                    <button className="card-text" onClick={() => addToCart(value.id)}>
+                                        add to card
+                                    </button>
                                 </div>
                             </div>
                         )
@@ -77,4 +96,4 @@ function Collections() {
     )
 }
 
-export default Collections
+export default ShowList

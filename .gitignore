@@ -23,6 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 
+## Project
+dist/*
+public/*
+
 ## Node.js
 lib-cov
 *.seed

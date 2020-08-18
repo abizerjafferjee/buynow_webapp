@@ -2,8 +2,8 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames'
 
-import Header from './Header';
-import Hero from "./Hero";
+import Header from './Navs/Header';
+import Hero from "./Navs/Hero";
 
 function Front() {
     let location = useLocation()

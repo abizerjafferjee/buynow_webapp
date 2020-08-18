@@ -14,8 +14,8 @@ function Logo({className}) {
         <Image
             className={className}
             src={require(`../assets/images/${logoFile}`)}
-            width={300}
-            height={150}
+            width={200}
+            height={100}
             alt="Open" />
     )
 }

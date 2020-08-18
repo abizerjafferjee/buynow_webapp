@@ -13,10 +13,10 @@
   text-align: center;
 }
 
-.section-container {
-  position: relative;
-  padding: 0px;
-}
+// .section-container {
+//   position: relative;
+//   padding: 0px;
+// }
 
 .section-content {
   margin: 0;
@@ -39,10 +39,10 @@
   text-align: center;
 }
 
-.section-subtitle {
-  font-size: 25px;
-  color: #015773;
-}
+// .section-subtitle {
+//   font-size: 25px;
+//   color: #015773;
+// }
 
 .section-text {
   font-size: 16px;
@@ -50,48 +50,16 @@
   font-weight: normal;
 }
 
-.image-label {
-  color: #015773;
+.footer-content {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  color: white;
 }
 
-.image-label img {
-  display: block;
-  margin: 0 auto;
+.showListContainer {
+  padding: 10px;
+  min-height: 500px;
 }
 
-@media screen and (max-width: 500px){
-  * {
-    font-family: 'Lato', sans-serif;
-    font-size: 16px;
-  }
-
-  .section-container {
-    position: relative;
-    padding: 50px;
-  }
-
-  .section-title {
-    font-size: 25px;
-    color: #015773;
-    text-align: left;
-  }
-
-  .section-content {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -10%;
-    transform: translate(-50%, -50%);
-    text-align: left;
-  }
-}
-
-@import "./headerFooter";
-@import "./hero";
-@import "./subscribe";
-@import "./services";
-@import "./customers";
-@import "./teams";
-@import "./contactForm";
 @import "./collections";
+@import "./navbar";

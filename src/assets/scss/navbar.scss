@@ -1,0 +1,50 @@
+.navbar-background {
+    background-color: #21D4FD;
+    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+}
+
+.navbar a {
+  font-family: 'Lato', sans-serif;
+  font-size: 20px;
+  color: white;
+  margin: 20px;
+
+  &:hover {
+    color: orange;
+  }
+}
+
+#navbar {
+    padding: 20px;
+    transition: all 0.4s linear;
+
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    color: white;
+
+    .header {
+        font-family: 'Lato', sans-serif;
+        font-size: 20px;
+        color: white;
+    }
+
+    #logo:hover {
+        background: #fff;
+    }
+}
+
+.small {
+    padding: 0 !important;
+
+    .header {
+        font-size: 1.5rem !important;
+    }
+}
+
+#menu-search {
+    min-width: 100px;
+}
+
+#centeritem {
+    position: relative
+}
