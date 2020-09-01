@@ -1,0 +1,1 @@
+export const STRIPE_PUBLISHABLE = 'pk_test_51HI1opH9PLlFARsrME2IYTZG7xTcYBrTRJri7xqbVsmiaNU3UdQcpyCPapkW7Tqz2kxFUtO2XgDxpMAGXBbcjDn600OstLfq3B'

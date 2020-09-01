@@ -1,26 +1,44 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import { Step, Icon, Grid, Segment, Button, Header } from 'semantic-ui-react'
+import { Step, Icon, Grid, Segment, Button, Header, Loader, Dimmer } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import toastr from 'toastr'
+import { loadStripe } from '@stripe/stripe-js';
 
 import Cart from '../components/Cart'
-import Billing from '../components/Billing'
-import Confirmation from '../components/Confirmation'
-import { removeFromCart, clearCart, placeOrder } from '../actions/Cart'
-import { setBillingOptions } from '../actions/Billing'
+import { removeFromCart, clearCart, placeOrder, addToCart } from '../actions/Cart'
+import { STRIPE_PUBLISHABLE } from '../constants/Stripe'
+
+const stripePromise = loadStripe(STRIPE_PUBLISHABLE);
 
 function CartPage(props) {
 
-    const [step, setStep] = useState(1)
+    const [loading, setLoading] = useState(false);
 
-    function nextStep() {
-        setStep(step+1)
-    }
+    useEffect(() => {
+        if ('checkoutId' in props.stripe) {
+            setLoading(false)
+            stripeCheckout(props.stripe.checkoutId)
+        }
+    }, [props.stripe]);
 
-    function previousStep() {
-        setStep(step-1)
+    async function stripeCheckout(checkoutId) {
+
+        const stripe = await stripePromise
+
+        const result = await stripe.redirectToCheckout({
+            sessionId: checkoutId,
+          });
+
+        setLoading(false)
+      
+        if (result.error) {
+            console.log(result.error)
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer
+            // using `result.error.message`.
+        }
     }
 
     function handleRemoveItem(e, item) {
@@ -28,90 +46,46 @@ function CartPage(props) {
         props.removeFromCart(item.id)
     }
 
-    function submit() {
-        props.placeOrder(props.cart, props.billing.data)
-        props.history.push('/')
+    function handleAddQuantity(e, item) {
+        e.stopPropagation()
+        props.addToCart(item.show, 1)
     }
 
-    function showStep() {
-        switch (step) {
-            case 1:
-                return <Cart
-                            cart={props.cart}
-                            nextStep={nextStep}
-                            handleRemoveItem={handleRemoveItem}
-                            clearCart={props.clearCart}
-                        />
-            case 2:
-                return <Billing
-                            billing={props.billing}
-                            nextStep={nextStep}
-                            previousStep={previousStep}
-                            setBillingOptions={props.setBillingOptions}
-                        />
+    function handleRemoveQuantity(e, item) {
+        e.stopPropagation()
+        props.addToCart(item.show, -1)
+    }
 
-            case 3:
-                return <Confirmation
-                            cart={props.cart}
-                            billing={props.billing}
-                            previousStep={previousStep}
-                            submit={submit}
-                        />
-            default:
-                return
-        }
+    function submit() {
+        setLoading(true)
+        props.placeOrder(props.cart)
+        // props.history.push('/')
     }
 
     const accountPlaceHolder = 
-        <Grid columns='equal'>
-            <Grid.Column>
-            </Grid.Column>
-            <Grid.Column width={8}>
-                <Segment placeholder>
-                    <Header icon>
-                    <Icon name='user' />
-                        Create an account to buy a ticket.
-                    </Header>
-                    <Segment.Inline>
-                    <Button primary as={Link} to='/account'>Account</Button>
-                    </Segment.Inline>
-                </Segment>
-            </Grid.Column>
-            <Grid.Column>
-            </Grid.Column>
-        </Grid>
+        <div className='center'>
+            <a className='center-child' href='#' onClick={() => props.handleTogglePane('account')}>Login to view cart</a>
+        </div>
 
     return (
         <>
         {
             props.auth.isAuthenticated ? 
             <div>
-                <Step.Group attached='top'>
-                    <Step active={step === 1}>
-                        <Icon name='shopping cart' />
-                        <Step.Content>
-                            <Step.Title>Confirm items</Step.Title>
-                        </Step.Content>
-                    </Step>
-
-                    <Step active={step === 2}>
-                        <Icon name='payment' />
-                        <Step.Content>
-                            <Step.Title>Billing</Step.Title>
-                            <Step.Description>Enter billing information</Step.Description>
-                        </Step.Content>
-                    </Step>
-
-                    <Step active={step === 3}>
-                        <Icon name='info circle' />
-                        <Step.Content>
-                            <Step.Title>Confirm Order</Step.Title>
-                            <Step.Description>Verify order details</Step.Description>
-                        </Step.Content>
-                    </Step>
-                </Step.Group>
-
-                {showStep()}
+                {
+                    loading && <Dimmer active><Loader /></Dimmer>
+                }
+                <Header as='h2' inverted dividing>
+                    CART
+                </Header>
+                <Cart
+                    cart={props.cart}
+                    handleRemoveItem={handleRemoveItem}
+                    clearCart={props.clearCart}
+                    handleAddQuantity={handleAddQuantity}
+                    handleRemoveQuantity={handleRemoveQuantity}
+                    submit={submit}
+                />
             </div>
             : accountPlaceHolder
         }
@@ -124,16 +98,18 @@ CartPage.propTypes = {
     removeFromCart: PropTypes.func.isRequired,
     clearCart: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    setBillingOptions: PropTypes.func.isRequired,
-    placeOrder: PropTypes.func.isRequired
+    placeOrder: PropTypes.func.isRequired,
+    addToCart: PropTypes.func.isRequired,
+    handleTogglePane: PropTypes.func.isRequired,
+    stripe: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {
     return {
         cart: state.cart,
         auth: state.auth,
-        billing: state.billing
+        stripe: state.stripe
     }
 }
 
-export default connect(mapStateToProps, { removeFromCart, clearCart, setBillingOptions, placeOrder })(CartPage)
+export default connect(mapStateToProps, { removeFromCart, clearCart, placeOrder, addToCart })(CartPage)

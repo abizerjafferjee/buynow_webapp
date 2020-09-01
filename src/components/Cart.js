@@ -1,63 +1,53 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Button, Message, Divider } from 'semantic-ui-react'
+import { Table, Button, Message, Divider, Item, Label, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import _ from 'lodash'
+
+import {prettyShowTime} from '../helpers/Helpers'
 
 function Cart(props) {
 
     let totalPrice = 0
 
+    const fontStyle = {color:'white'}
+
     let items = _.map(props.cart, (element, index) => {
         totalPrice += element.show.show_price * element.quantity
         return (
-            <Table.Row key={index}>
-                <Table.Cell>{index+1}</Table.Cell>
-                <Table.Cell>{element.show.title}</Table.Cell>
-                <Table.Cell>{element.quantity}</Table.Cell>
-                <Table.Cell>{element.show.show_price}</Table.Cell>
-                <Table.Cell>{(element.show.show_price * element.quantity).toFixed(2)}</Table.Cell>
-                <Table.Cell>
-                    <Button circular icon='trash' onClick={(e) => props.handleRemoveItem(e, element)} />
-                </Table.Cell>
-            </Table.Row>
+            <Item key={index}>
+                <Item.Image size='tiny' src={require(`../assets/images/${element.show.image_path}`)} />
+
+                <Item.Content>
+                    <Item.Header as='a'><span className="cart_font">{element.show.title}</span></Item.Header>
+                    <Item.Meta>
+                        <span className='cart_font cinema'>{prettyShowTime(element.show.show_datetime)}</span>
+                    </Item.Meta>
+                    <Item.Description>
+                        <span className="cart_font">{element.quantity} tickets X USD {element.show.show_price}</span>
+                    </Item.Description>
+                    <Item.Extra>
+                        <Button circular icon='trash' onClick={(e) => props.handleRemoveItem(e, element)} />
+                        <Button circular icon='plus' onClick={(e) => props.handleAddQuantity(e, element)} />
+                        <Button circular icon='minus' onClick={(e) => props.handleRemoveQuantity(e, element)} />
+                    </Item.Extra>
+                </Item.Content>
+            </Item>
         )
     })
 
     const itemList =
-        <Table striped padded attached>
-            <Table.Header>
-                <Table.Row>
-                    <Table.HeaderCell>SN</Table.HeaderCell>
-                    <Table.HeaderCell>Show</Table.HeaderCell>
-                    <Table.HeaderCell>Quantity</Table.HeaderCell>
-                    <Table.HeaderCell>Price</Table.HeaderCell>
-                    <Table.HeaderCell>Subtotal</Table.HeaderCell>
-                    <Table.HeaderCell></Table.HeaderCell>
-                </Table.Row>
-            </Table.Header>
-
-            <Table.Body>
-                {items}
-            </Table.Body>
-
-            <Table.Footer>
-                <Table.Row>
-                    <Table.HeaderCell colSpan='6'>
-                        <Button floated='right' onClick={(e) => props.clearCart()}>Clear all</Button>
-                    </Table.HeaderCell>
-                </Table.Row>
-            </Table.Footer>
-        </Table>
+        <Item.Group divided>
+            {items}
+        </Item.Group>
 
 
     const cartEmptyMessage =
         <Message info>
             <Message.Header>
-                Your shopping-cart is empty.
+                You haven't selected any events.
             </Message.Header>
-
-            <p>There is no item in your shopping-cart, go add some item now.</p>
+            <p>There are no tickets in your cart, go pick some live shows.</p>
         </Message>
 
     return (
@@ -72,11 +62,9 @@ function Cart(props) {
                 label={{ basic: true, pointing: 'left', content: totalPrice.toFixed(2) }}
             />
 
-            <Button.Group floated='right'>
-                <Button primary as={Link} to='/'>Continue shopping</Button>
-                <Button.Or />
-                <Button color='red' disabled={items.length <= 0} onClick={(e) => props.nextStep()}>Next step</Button>
-            </Button.Group>
+            <Button primary floated='right' disabled={items.length <= 0} onClick={()=>props.submit()}>
+                Buy tickets
+            </Button>
 
         </div>
     )

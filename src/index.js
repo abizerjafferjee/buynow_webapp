@@ -12,7 +12,6 @@ import App from './containers/App'
 import rootReducer from './reducers/index'
 import { loginSuccess, setAuthorizationToken } from './actions/Auth'
 
-
 import * as serviceWorker from './serviceWorker'
 import './assets/scss/style.scss'
 

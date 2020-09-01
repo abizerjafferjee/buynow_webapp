@@ -2,38 +2,41 @@ import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import { Modal, Card, Image, Rating, Grid, Header, Divider, Button, Input, Icon, Segment } from 'semantic-ui-react'
 import toastr from 'toastr'
+import { connect } from 'react-redux'
+
+import {prettyShowTime} from '../helpers/Helpers'
+import {setShowDisplay} from '../actions/Panel' 
 
 function Show(props) {
 
     const [quantity, setQuantity] = useState(1);
-
-    function handleMinusCount() {
-        if (quantity > 1) {
-            setQuantity(quantity-1)
-        }
-    }
-
-    function handleAddCount() {
-        setQuantity(quantity+1)
-    }
 
     function handleAddToCart() {
         props.addToCart(props.show, quantity)
         console.log(`Added <b>${props.show.title}</b> into shopping-cart.`)
     }
 
-    function prettyShowTime(showDateTime) {
-        const showTime = new Date(showDateTime)
-        showTime.setSeconds(0,0)
-        return showTime.toUTCString()
+    function handleShowPane(showId) {
+        props.setShowDisplay(showId)
+        // props.handleTogglePane('show')
     }
-    
+
+    const fontStyle = {
+        fontFamily: 'Russo One, sans-serif',
+        color: 'white',
+        fontSize: '20px'
+    }
+
+    const imgStyle = {
+        borderRadius: '5%'
+    }
+
     return (
-            <Card>
-                <Image src={require(`../assets/images/${props.show.image_path}`)} wrapped ui={false} />
+            <Card className="card_background my-5 card_text" onClick={() => handleShowPane(props.show.id)}>
+                <Card.Header className="p-2">{props.show.title}</Card.Header>
+                <Image className='card_image' style={imgStyle} src={require(`../assets/images/${props.show.image_path}`)} ui={false} />
                 <Card.Content>
-                    <Card.Header>{props.show.title}</Card.Header>
-                    <Card.Meta>
+                    <Card.Description style={fontStyle}>
                         {props.show.genre} 
                         { 
                             props.show.artists.length > 0 && 
@@ -44,41 +47,35 @@ function Show(props) {
                                 })} 
                             </>
                         }
-                    </Card.Meta>
-                    <Card.Meta>
+                        <br></br>
                         <small>
-                        {prettyShowTime(props.show.show_datetime)}
+                            {prettyShowTime(props.show.show_datetime)}
                         </small>
-                    </Card.Meta>
-                    {
-                        props.show.description !== 'No description' &&
-                        <Card.Description>
-                            {props.show.description}
-                        </Card.Description>
-                    }
+                    </Card.Description>
             </Card.Content>
-            <Card.Content extra>
-            <>USD { props.show.show_price }</>
-            &nbsp;
-            <Button onClick={handleAddToCart}>
+            {/* <Card.Content extra>
+            <Header floated='left' as='h4'>USD { props.show.show_price }</Header>
+            <Button floated='right' onClick={handleAddToCart}>
                 <Button.Content visible>
                     <Icon name='shop' />
                 </Button.Content>
             </Button>
-
-            {/* <div id='quantity'>
-                <Button icon='minus' size='tiny' onClick={handleMinusCount} />
-                <div>{quantity}</div>
-                <Button icon='add' size='tiny' onClick={handleAddCount} />
-            </div> */}
-            </Card.Content>
+            </Card.Content> */}
         </Card>
     )
 }
 
 Show.propTypes = {
     show: PropTypes.object.isRequired,
-    addToCart: PropTypes.func.isRequired
+    addToCart: PropTypes.func.isRequired,
+    panel: PropTypes.object.isRequired,
+    setShowDisplay: PropTypes.func.isRequired
 }
 
-export default Show
+const mapStateToProps = (state) => {
+    return {
+        panel: state.panel
+    }
+}
+
+export default connect(mapStateToProps, {setShowDisplay})(Show)

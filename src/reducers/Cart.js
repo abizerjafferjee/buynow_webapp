@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../constants/ActionTypes'
+import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART, STRIPE_CHECKOUT } from '../constants/ActionTypes'
 import shortid from 'shortid'
 import _ from 'lodash'
 
@@ -9,6 +9,9 @@ const cart = (state=[], action={}) => {
                 let newState = state.slice()
                 for (let i=0; i<newState.length; i++) {
                     if (newState[i].show.title === action.payload.show.title) {
+                        if (action.payload.quantity < 0 && newState[i].quantity == 1) {
+                            continue
+                        }
                         newState[i].quantity += action.payload.quantity
                     }
                 }
@@ -26,7 +29,7 @@ const cart = (state=[], action={}) => {
             ]
         
         case REMOVE_FROM_CART:
-            let idx = _.findIndex(state, { id: action.payload.id })
+            var idx = _.findIndex(state, { id: action.payload.id })
             if (idx >= 0) {
                 return [
                     ...state.slice(0, idx),

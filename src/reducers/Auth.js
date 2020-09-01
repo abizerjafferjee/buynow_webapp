@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/ActionTypes'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/ActionTypes'
 
 const initialState = {
     isAuthenticated: false,
@@ -9,6 +9,11 @@ const initialState = {
 
 const auth = (state=initialState, action={}) => {
     switch (action.type) {
+        case LOGIN_REQUEST:
+            return {
+                ...initialState,
+                loading: true
+            }
         case LOGIN_SUCCESS:
             return {
                 isAuthenticated: !_.isEmpty(action.payload),

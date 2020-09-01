@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Form, Segment, Button, Divider, Modal, Message, Header, Image, Card, Grid } from 'semantic-ui-react'
+import { Form, Segment, Button, Divider, Modal, Message, Header, Image, Card, Grid, Loader } from 'semantic-ui-react'
 import _ from 'lodash'
 
 function Account(props) {
@@ -12,6 +12,12 @@ function Account(props) {
     const [email, setEmail] = useState('');
     const [signupPassword, setSignupPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('');
+
+    const [showSignIn, setShowSignIn] = useState(true)
+
+    function handleToggleForms() {
+        setShowSignIn(!showSignIn)
+    }
 
     function handleLoginOnChange(e) {
         const { name, value } = e.target
@@ -52,11 +58,18 @@ function Account(props) {
     }
 
     return (
-        <div>
-
-            <Segment>
-                <Grid columns={2} relaxed='very' stackable>
-                    <Grid.Column>
+        <div className='center'>
+            <div className='center-child'>
+            {
+                props.auth.loading && <Loader active />
+            }
+            {
+                props.auth.error && <Message color='red'>Log in failed, please check your credentials again.</Message>
+            }
+            <Card>
+                <Card.Content>
+                    {
+                        showSignIn ?
                         <Form>
                             <Form.Input
                                 icon='user'
@@ -88,9 +101,7 @@ function Account(props) {
                                 labelPosition='right'
                             />
                         </Form>
-                    </Grid.Column>
-
-                    <Grid.Column verticalAlign='middle'>
+                        :
                         <Form>
                             <Form.Input
                                 icon='user'
@@ -143,11 +154,17 @@ function Account(props) {
                             />
 
                         </Form>
-                    </Grid.Column>
-                </Grid>
+                    }
+                </Card.Content>
+            </Card>
 
-                <Divider vertical>Or</Divider>
-            </Segment>
+            {
+                showSignIn ? 
+                <a href='#' onClick={()=>handleToggleForms()}>Don't have an account?</a>
+                : <a href='#' onClick={()=>handleToggleForms()}>Sign In</a>
+            }
+            
+            </div>
 
         </div>
 
