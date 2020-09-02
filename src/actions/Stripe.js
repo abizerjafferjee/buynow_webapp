@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { SET_STRIPE_CHECKOUT, SET_PAYMENT_STATUS, CLEAR_STRIPE } from '../constants/ActionTypes'
 import { clearCart } from './Cart'
+import { serverUrl } from '../constants/Common'
 
 export const setStripeCheckout = (checkoutId) => {
     return {
@@ -28,7 +29,7 @@ export const clearStripe = () => {
 
 export const updatePaymentStatus = (orderId, payment_status) => {
     return dispatch => {
-        axios.patch(`/shows/order/${orderId}/`, {payment_status: payment_status})
+        axios.patch(`${serverUrl}/shows/order/${orderId}/`, {payment_status: payment_status})
             .then((res) => {
                 if (payment_status === 2) {
                     dispatch(stripePaymentStatus(true))

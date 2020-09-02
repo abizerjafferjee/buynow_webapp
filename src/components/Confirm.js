@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Header, Loader, Container, Grid } from 'semantic-ui-react'
-import _ from 'lodash'
 
 import { updatePaymentStatus, clearStripe } from '../actions/Stripe'
 

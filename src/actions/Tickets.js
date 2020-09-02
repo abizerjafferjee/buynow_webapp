@@ -2,8 +2,7 @@ import axios from 'axios'
 import toastr from 'toastr'
 
 import { FETCH_TICKETS_REQUEST, FETCH_TICKETS_SUCCESS, FETCH_TICKETS_FAILURE } from '../constants/ActionTypes'
-import { TOASTR_OPTIONS } from '../constants/Common'
-toastr.options = TOASTR_OPTIONS
+import { serverUrl } from '../constants/Common'
 
 export const fetchTicketsRequest = () => {
     return {
@@ -28,7 +27,7 @@ export const fetchTicketsFailure = (error) => {
 export const fetchTickets = () => {
     return dispatch => {
         dispatch(fetchTicketsRequest())
-        axios.get('/shows/ticket/')
+        axios.get(`${serverUrl}/shows/ticket/`)
             .then((res) => {
                 dispatch(fetchTicketsSuccess(res.data))
             })

@@ -2,7 +2,7 @@ import { SET_SHOW } from '../constants/ActionTypes'
 
 export const setShowPanel = (id) => {
     return {
-        type: 'SET_SHOW',
+        type: SET_SHOW,
         payload: id
     }
 }

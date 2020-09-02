@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { Button, Message, Divider, Item, Label, Icon, List, Header } from 'semantic-ui-react'
+import { Item, List, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 import {prettyShowTime} from '../helpers/Helpers'

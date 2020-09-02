@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode'
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/ActionTypes'
 import { fetchShows } from './Shows'
+import { serverUrl } from '../constants/Common'
 
 export const loginRequest = (username) => {
     return {
@@ -35,7 +36,7 @@ export const setAuthorizationToken = (token) => {
 
 export const renewAuthorizationToken = (token) => {
     return dispatch => {
-        axios.post('/accounts/accounts-token-refresh/', { token })
+        axios.post(`${serverUrl}/accounts/accounts-token-refresh/`, { token })
     }
 }
 
@@ -43,7 +44,7 @@ export const login = (username, password) => {
 
     return dispatch => {
         dispatch(loginRequest(username))
-        axios.post('/accounts/accounts-token-auth/', {username, password})
+        axios.post(`${serverUrl}/accounts/accounts-token-auth/`, {username, password})
             .then((response) => {
                 let token = response.data.token
                 localStorage.setItem('jwtToken', token)
@@ -53,9 +54,9 @@ export const login = (username, password) => {
             })
             .catch((error) => {
                 dispatch(loginFailure(error.response))
-                if (error.response.status === 400 && error.response.data.non_field_errors[0] === 'Unable to log in with provided credentials.') {
-                    console.log("Log in failed, please check your credentials again.")
-                }
+                // if (error.response.status === 400 && error.response.data.non_field_errors[0] === 'Unable to log in with provided credentials.') {
+                //     console.log("Log in failed, please check your credentials again.")
+                // }
             })
     }
 }
@@ -70,7 +71,7 @@ export const logout = () => {
 
 export const checkAuthorizationToken = (token) => {
     return dispatch => {
-        axios.post('/accounts/accounts-token-verify/', { token })
+        axios.post(`${serverUrl}/accounts/accounts-token-verify/`, { token })
             .then((res) => {
                 dispatch(renewAuthorizationToken(res.data.token))
             })
@@ -85,7 +86,7 @@ export const checkAuthorizationToken = (token) => {
 
 export const userSignupRequest = (userInfo) => {
     return dispatch => {
-        axios.post('/accounts/users/', userInfo)
+        axios.post(`${serverUrl}/accounts/users/`, userInfo)
         .then((res) => {
             console.log('Welcome! Your account is available now.')
         })

@@ -1,6 +1,7 @@
 import { FETCH_SHOWS_REQUEST, FETCH_SHOWS_SUCCESS, FETCH_SHOWS_FAILURE, FILTER_SHOWS } from '../constants/ActionTypes'
 
-const serverUrl = 'http://localhost:8000'
+// const serverUrl = 'http://localhost:8000'
+import { serverUrl } from '../constants/Common'
 
 export const fetchShowsRequest = () => {
     return {
