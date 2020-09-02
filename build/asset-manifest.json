@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.ac1afba0.chunk.css",
+    "main.js": "/static/js/main.b4569021.chunk.js",
+    "main.js.map": "/static/js/main.b4569021.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.010d5a95.js",
+    "runtime-main.js.map": "/static/js/runtime-main.010d5a95.js.map",
+    "static/css/2.4433b899.chunk.css": "/static/css/2.4433b899.chunk.css",
+    "static/js/2.0d2a0afd.chunk.js": "/static/js/2.0d2a0afd.chunk.js",
+    "static/js/2.0d2a0afd.chunk.js.map": "/static/js/2.0d2a0afd.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.941994ac6c85ab94b8dec3c16d00e0ed.js": "/precache-manifest.941994ac6c85ab94b8dec3c16d00e0ed.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.4433b899.chunk.css.map": "/static/css/2.4433b899.chunk.css.map",
+    "static/css/main.ac1afba0.chunk.css.map": "/static/css/main.ac1afba0.chunk.css.map",
+    "static/js/2.0d2a0afd.chunk.js.LICENSE.txt": "/static/js/2.0d2a0afd.chunk.js.LICENSE.txt",
+    "static/media/crayfish.png": "/static/media/crayfish.1f9c6466.png",
+    "static/media/daniel.jpg": "/static/media/daniel.fcfe2bd1.jpg",
+    "static/media/elliot.jpg": "/static/media/elliot.432d61fd.jpg",
+    "static/media/matthew.png": "/static/media/matthew.046e91f7.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.010d5a95.js",
+    "static/css/2.4433b899.chunk.css",
+    "static/js/2.0d2a0afd.chunk.js",
+    "static/css/main.ac1afba0.chunk.css",
+    "static/js/main.b4569021.chunk.js"
+  ]
+}
