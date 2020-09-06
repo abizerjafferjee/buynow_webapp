@@ -20,7 +20,7 @@ function AccountPage(props) {
     }, [props.auth])
 
     return (
-        <>
+        <div className="p-2">
         {
             props.auth.isAuthenticated ? 
             <Profile
@@ -35,15 +35,17 @@ function AccountPage(props) {
                 logout={props.logout}
                 userSignupRequest={props.userSignupRequest}
                 auth={props.auth}
+                signup={props.signup}
             />
         }
-        </>
+        </div>
     )
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
         auth: state.auth,
+        signup: state.signup,
         orders: state.account.data,
         tickets: state.tickets.data
     }
@@ -54,6 +56,7 @@ AccountPage.propTypes = {
     logout: PropTypes.func.isRequired,
     userSignupRequest: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
+    signup: PropTypes.object,
     orders: PropTypes.array,
     fetchOrders: PropTypes.func.isRequired,
     tickets: PropTypes.array,

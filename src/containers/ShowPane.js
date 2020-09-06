@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import { Step, Icon, Grid, Segment, Button, Header, Loader, Image, Divider } from 'semantic-ui-react'
+import { Button, Divider, Container, Item } from 'semantic-ui-react'
 import { connect } from 'react-redux'
+import Moment from 'react-moment'
 
 import { addToCart } from '../actions/Cart'
-import {prettyShowTime} from '../helpers/Helpers'
 
 function ShowPane(props) {
 
@@ -16,58 +16,35 @@ function ShowPane(props) {
     }
 
     return (
-        <Grid className="p-0 m-0"  style={{width:'100%'}}>
-            <Grid.Row>
-                <Grid.Column className="p-0 m-0">
-                    <Image className="m-0 p-0" fluid src={require(`../assets/images/${props.show.image_path}`)} ui={true} />
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column className="p-0 m-0">
-                    <Segment.Group>
-                        <Segment>
-                            <Header as='h2'>{ props.show.title }</Header>
-                        </Segment>
-                        {
-                            props.show.description !== "No description" &&
-                            <Segment>
-                                <Header as='h4'>{ props.show.description }</Header>
-                            </Segment>
-                        }
-                        <Segment>
-                            <Header>
-                                { 
-                                        props.show.artists.length > 0 && 
-                                        <> { props.show.artists.map((value, index) => {
-                                                const tag = index === props.show.artists.length-1 ? <span key={index}>{value.name}</span> : <span key={index}>{value.name}, </span>
-                                                return tag 
-                                            })} 
-                                        </>
-                                }
-                            </Header>
-                        </Segment>
-                        <Segment>
-                            <Header>
-                            {props.show.genre} 
-                            </Header>
-                        </Segment>
-                        <Segment>
-                            <Header>
-                            {prettyShowTime(props.show.show_datetime)}
-                            </Header>
-                        </Segment>
+        <Container fluid className="p-3">
+        <Item.Group>
+            <Item>
+                <Item.Image size='small' src={require(`../assets/images/${props.show.image_path}`)} />
 
-                    </Segment.Group>
-                    <Divider></Divider>
-                    <Header inverted floated='left' as='h4'>USD { props.show.show_price }</Header>
-                    <Button floated='right' onClick={handleAddToCart}>
-                        <Button.Content visible>
-                            <Icon name='shop' />
-                        </Button.Content>
-                    </Button>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
+                <Item.Content>
+                    <div className="h3 text-white">{props.show.artists[0].name}</div>
+                    <div className="h5 text-white">{ props.show.title }</div>
+                    <Divider />
+                    <Item.Meta>
+                        <div className="h5 text-white"> 
+                            <Moment 
+                                interval={0} 
+                                format="MMM Do - LT"
+                                date={props.show.show_datetime}     
+                            />
+                            <Button size="tiny" color="red" floated='right' onClick={handleAddToCart} className="custom-btn">
+                                USD { props.show.show_price }
+                            </Button>
+                        </div>
+                    </Item.Meta>
+                </Item.Content>
+            </Item>
+            </Item.Group>
+            {
+                props.show.description !== "No description" && <div className="h4 text-white">{ props.show.description }</div>
+
+            }
+        </Container>
     )
 }
 

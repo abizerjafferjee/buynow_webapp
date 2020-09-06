@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { Card } from 'semantic-ui-react'
@@ -7,16 +7,8 @@ import Show from './Show'
 
 function ShowList(props) {
 
-    var itemsPerRow = 6
     const w = window.outerWidth
-
-    if (w >= 1500) {
-        itemsPerRow = 5
-    } else if (w >= 750 && w <= 1500) {
-        itemsPerRow = 3
-    } else {
-        itemsPerRow = 1
-    }
+    var itemsPerRow = Math.round(w/320)
 
     let showList = _.map(props.shows, (show, index) => {
         return (
@@ -25,7 +17,11 @@ function ShowList(props) {
     })
 
     return (
-        <Card.Group className="py-5" itemsPerRow={itemsPerRow} style={{border:'none'}}>
+        <Card.Group 
+            className="py-5" 
+            itemsPerRow={itemsPerRow} 
+            style={{border:'none'}}
+        >
             {showList}
         </Card.Group>
     )

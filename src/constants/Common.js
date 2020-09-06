@@ -4,4 +4,4 @@ export const TOASTR_OPTIONS = {
     positionClass: 'toast-bottom-left'
 }
 
-export const serverUrl = 'http://35.183.44.167'
+export const serverUrl = 'http://localhost:8000'

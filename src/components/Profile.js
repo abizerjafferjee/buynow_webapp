@@ -1,9 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form, Segment, Button, Divider, Modal, Message, Header, Image, Item } from 'semantic-ui-react'
-import _ from 'lodash'
+import { Divider, Message, Header } from 'semantic-ui-react'
+// import _ from 'lodash'
 
-import OrderList from './OrderList'
 import TicketList from './TicketList'
 
 function Profile(props) {
@@ -14,28 +13,21 @@ function Profile(props) {
 
     return (
         <div>
-        <Message info>
-            Logged in as <b>{props.auth.user.username}</b>
-            <Header 
-                size='tiny'
-                float='right'
-                onClick={handleUserLogout}>
-                Logout
+            <Header as='h2' inverted dividing>
+                TICKETS
             </Header>
-        </Message>
 
-        <Header as='h2' inverted dividing>
-            TICKETS
-        </Header>
+            <TicketList tickets={props.tickets} />
 
-        <TicketList tickets={props.tickets} />
-        
-        {/* <Item.Group divided>
-            <OrderList orders={props.orders} />
-        </Item.Group> */}
-
-        <Divider />
-    </div>
+            <Divider />
+            <div className="d-block text-white h6">
+                Logged in as <b>{props.auth.user.username}</b>
+                <div className="float-right"
+                    onClick={handleUserLogout}>
+                    Logout
+                </div>
+            </div>
+        </div>
     )
 }
 

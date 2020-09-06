@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import { Step, Icon, Grid, Segment, Button, Header, Loader, Dimmer } from 'semantic-ui-react'
+import { Header, Loader, Dimmer } from 'semantic-ui-react'
 import { connect } from 'react-redux'
-import { withRouter, Link } from 'react-router-dom'
-import toastr from 'toastr'
+// import { withRouter, Link } from 'react-router-dom'
+// import toastr from 'toastr'
 import { loadStripe } from '@stripe/stripe-js';
 
 import Cart from '../components/Cart'
@@ -68,7 +68,7 @@ function CartPage(props) {
         </div>
 
     return (
-        <>
+        <div className="p-2">
         {
             props.auth.isAuthenticated ? 
             <div>
@@ -89,7 +89,7 @@ function CartPage(props) {
             </div>
             : accountPlaceHolder
         }
-        </>
+        </div>
     )
 }
 

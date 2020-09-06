@@ -1,17 +1,16 @@
-import React, { Component, useEffect, useState } from 'react';
-import { useLocation, Switch, Route, BrowserRouter, withRouter } from 'react-router-dom';
+import React, {useEffect, useState } from 'react';
+import { useLocation, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
 import ReactGA from 'react-ga';
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import classNames from 'classnames'
+// import classNames from 'classnames'
 
 
 import Home from './Home';
-import SlidingPanePage from './SlidingPanePage';
 import AccountPage from './AccountPage';
 import CartPage from './CartPage'
 import ShowPane from './ShowPane'
@@ -93,6 +92,7 @@ function App(props) {
   return (
     <div>
       <Header
+        auth={props.auth}
         showSearch={showSearch}
         itemsInCartCount={props.itemsInCartCount}
         shows={props.shows}
@@ -132,14 +132,16 @@ App.propTypes = {
   shows: PropTypes.array,
   filterShows: PropTypes.func.isRequired,
   checkAuthorizationToken: PropTypes.func.isRequired,
-  panel: PropTypes.object.isRequired
+  panel: PropTypes.object.isRequired,
+  auth: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
   return {
       itemsInCartCount: state.cart.length,
       shows: state.shows.data,
-      panel: state.panel
+      panel: state.panel,
+      auth: state.auth
   }
 }
 

@@ -7,6 +7,7 @@ import account from './Account'
 import stripe from './Stripe'
 import panel from './Panel'
 import tickets from './Tickets'
+import signup from './SignUp'
 
 const rootReducer = combineReducers({
     shows,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     account,
     stripe,
     panel,
-    tickets
+    tickets,
+    signup
 })
 
 export default rootReducer

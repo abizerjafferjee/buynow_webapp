@@ -26,7 +26,7 @@ export const fetchShowsFailure = (error) => {
 export const fetchShows = () => {
     return dispatch => {
         dispatch(fetchShowsRequest())
-        fetch(`${serverUrl}/shows/show/`)
+        fetch(`${serverUrl}/api/shows/`)
             .then((response) => {
                 return response.json()
             })

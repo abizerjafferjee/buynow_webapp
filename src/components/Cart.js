@@ -1,30 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Table, Button, Message, Divider, Item, Label, Icon } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
+import { Button, Divider, Item } from 'semantic-ui-react'
+// import { Link } from 'react-router-dom'
 import _ from 'lodash'
+import Moment from 'react-moment'
 
-import {prettyShowTime} from '../helpers/Helpers'
 
 function Cart(props) {
 
-    let totalPrice = 0
+    let ticketPrices = 0
 
-    const fontStyle = {color:'white'}
+    function calcTaxes(ticketPrices) {
+        return 0.13 * ticketPrices
+    }
+
+    function calcFees(ticketPrices) {
+        return (ticketPrices + (0.13 * ticketPrices)) * 0.0199 + 0.30
+    }
+
+    function calcTotal(ticketPrices) {
+        const taxes = 0.13 * ticketPrices
+        const fees = (ticketPrices + (0.13 * ticketPrices)) * 0.0199 + 0.30
+        return ticketPrices + taxes + fees
+    }
 
     let items = _.map(props.cart, (element, index) => {
-        totalPrice += element.show.show_price * element.quantity
+        ticketPrices += element.show.show_price * element.quantity
         return (
             <Item key={index}>
-                <Item.Image size='tiny' src={require(`../assets/images/${element.show.image_path}`)} />
+                <Item.Image size='small' src={require(`../assets/images/${element.show.image_path}`)} />
 
                 <Item.Content>
-                    <Item.Header as='a'><span className="cart_font">{element.show.title}</span></Item.Header>
+                    <div className="h3 text-white">{ element.show.artists[0].name}</div>
+                    <div className="h5 text-white"><b>{ element.show.title }</b></div>
+
                     <Item.Meta>
-                        <span className='cart_font cinema'>{prettyShowTime(element.show.show_datetime)}</span>
+                        <div className="h5 text-white"> 
+                            <Moment 
+                                interval={0} 
+                                format="MMM Do - LT"
+                                date={element.show.show_datetime}     
+                            />
+                        </div>
                     </Item.Meta>
                     <Item.Description>
-                        <span className="cart_font">{element.quantity} tickets X USD {element.show.show_price}</span>
+                        <div className="h6 text-white">{element.quantity} tickets X USD {element.show.show_price}</div>
                     </Item.Description>
                     <Item.Extra>
                         <Button circular icon='trash' onClick={(e) => props.handleRemoveItem(e, element)} />
@@ -43,12 +63,12 @@ function Cart(props) {
 
 
     const cartEmptyMessage =
-        <Message info>
-            <Message.Header>
-                You haven't selected any events.
-            </Message.Header>
-            <p>There are no tickets in your cart, go pick some live shows.</p>
-        </Message>
+        <div className="text-white d-block">
+            <div className="">
+                <p className="h5">You haven't selected any events.</p>
+                <p className="h6">There are no tickets in your cart, go pick some live shows.</p>
+            </div>
+        </div>
 
     return (
         <div>
@@ -56,11 +76,17 @@ function Cart(props) {
         
             <Divider />
 
-            <Button
+            <div className="d-inline-block text-white">
+                <div className="d-block h6"><b>Tickets:</b>&nbsp;&nbsp;USD {ticketPrices.toFixed(2)}</div>
+                <div className="d-block h6"><b>Taxes (13%):</b>&nbsp;&nbsp;USD {calcTaxes(ticketPrices).toFixed(2)}</div>
+                <div className="d-block h6"><b>Processing Fees (2.99% + $0.3):</b>&nbsp;&nbsp;USD {calcFees(ticketPrices).toFixed(2)}</div>
+                <div className="d-block h3"><b>Total:&nbsp;&nbsp;USD {calcTotal(ticketPrices).toFixed(2)}</b></div>
+            </div>
+            {/* <Button
                 content='Total'
                 icon='dollar'
                 label={{ basic: true, pointing: 'left', content: totalPrice.toFixed(2) }}
-            />
+            /> */}
 
             <Button primary floated='right' disabled={items.length <= 0} onClick={()=>props.submit()}>
                 Buy tickets
