@@ -1,59 +1,53 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Grid, Card, Header, Form, Button } from 'semantic-ui-react'
-
-import TicketList from '../components/TicketList'
-import { fetchTickets } from '../actions/Tickets'
+import { Header, Form, Button, Container } from 'semantic-ui-react'
 
 function LivePage(props) {
+    
+    const [ticketId, setTicketId] = useState('')
 
-    // useEffect(() => {
-    //     if (props.auth.isAuthenticated) {
-    //         props.fetchTickets()
-    //     }
-    // }, [props.auth])
+    function handleTicketChange(e) {
+        const {name, value} = e.target
+        setTicketId(value)
+    }
+
+    function handleTicketForm(e) {
+        e.preventDefault()
+        props.history.push(`/live/${ticketId}`)
+    }
 
     return (
-        <div className="p-5">
-            <Grid centered columns={2} className="p-5">
-                <Grid.Column>
-                    <Card className="card_background" style={{width:'100%'}}>
-                        {
-                            props.auth.isAuthenticated ? 
-                            <Card.Content>
-                                <Header size="large" color="red">Upcoming Shows</Header>
-                                <TicketList tickets={props.tickets} />
-                            </Card.Content>
-                            : <Card.Content>
-                                    <Header size="large" color="red">Enter your Ticket</Header>
-                                    <Form>
-                                        <Form.Field>
-                                            {/* <label>Ticket Id</label> */}
-                                            <input placeholder='Enter your Ticket Id' />
-                                        </Form.Field>
-                                        <Button primary type='submit'>Enter</Button>
-                                    </Form>
-                            </Card.Content>
-                        }
-                    </Card>
-                </Grid.Column>
-            </Grid>
-        </div>
+        <Container fluid>
+            <center className="p-5">
+                <div className="ticket-form-width">
+                    <div className='text-white h2 p-3'><b>Use your ticket to enter the live show</b></div>
+                    <Form>
+                        <Form.Input
+                            icon='ticket'
+                            iconPosition='left'
+                            name='ticketId'
+                            value={ticketId}
+                            placeholder='Enter your ticket Id'
+                            onChange={handleTicketChange}
+                            size="big"
+                        />
+                        <Button primary type='submit' onClick={handleTicketForm}>Enter</Button>
+                    </Form>
+                </div>
+            </center>
+        </Container>
     )
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        auth: state.auth,
-        tickets: state.tickets.data
+        auth: state.auth
     }
 }
 
 LivePage.propTypes = {
-    auth: PropTypes.object.isRequired,
-    tickets: PropTypes.array,
-    fetchTickets: PropTypes.func.isRequired
+    auth: PropTypes.object.isRequired
 }
 
-export default connect(mapStateToProps, {fetchTickets})(LivePage)
+export default connect(mapStateToProps, {})(LivePage)

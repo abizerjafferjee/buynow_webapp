@@ -2,7 +2,7 @@ import React, {useEffect, useState } from 'react';
 import { useLocation, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Container } from 'semantic-ui-react'
+import { Container, Responsive } from 'semantic-ui-react'
 import ReactGA from 'react-ga';
 // import { render } from "react-dom";
 import SlidingPane from "react-sliding-pane";
@@ -15,7 +15,7 @@ import AccountPage from './AccountPage';
 import CartPage from './CartPage'
 import ShowPane from './ShowPane'
 import LivePage from './LivePage'
-import Player from './Player'
+import PlayerPage from './PlayerPage'
 import Header from '../components/Navs/Header';
 import Footer from '../components/Navs/Footer';
 import Confirm from '../components/Confirm.js'
@@ -36,8 +36,11 @@ function App(props) {
   const [isPaneOpen, setPaneOpen] = useState(false)
   const [paneComponent, setPaneComponent] = useState('')
   const [focusShow, setFocusShow] = useState({})
+  const [hidePaneCloseButton, setHidePaneCloseButton] = useState(true)
+  const [paneWidth, setPaneWidth] = useState('500px')
 
   let location = useLocation();
+  const w = window.outerWidth
 
   function togglePane(componentName) {
     setPaneComponent(componentName)
@@ -48,13 +51,9 @@ function App(props) {
     if (paneComponent === 'account') {
       return <AccountPage />
     } else if (paneComponent === 'cart') {
-      return <CartPage 
-                handleTogglePane={togglePane}
-              />
+      return <CartPage handleTogglePane={togglePane} />
     } else if (paneComponent === 'show') {
-      return <ShowPane
-                show={focusShow}
-              />
+      return <ShowPane show={focusShow} />
     }
   }
 
@@ -72,6 +71,13 @@ function App(props) {
   useEffect(() => {
     if (localStorage.jwtToken) {
       props.checkAuthorizationToken(localStorage.jwtToken)
+    }
+    if (w <= Responsive.onlyMobile.maxWidth) {
+      setPaneWidth('320px')
+      setHidePaneCloseButton(false)
+    } else {
+      setPaneWidth('500px')
+      setHidePaneCloseButton(true)
     }
   }, [])
 
@@ -100,24 +106,29 @@ function App(props) {
         handleTogglePane={togglePane} 
       />
       
-      <Container id='content-wrapper' className='home-background home' fluid>
+      <div className='home-background'>
         <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/shows/:slug" component={Home} />
             <Route exact path="/tickets/:status/:id" component={Confirm} />
             <Route exact path="/live" component={LivePage} />
-            <Route exact path="/live/:ticket" component={Player} />
+            <Route path="/live/:ticket" component={PlayerPage} />
+            <Route exact path="/cart">
+                <CartPage handleTogglePane={togglePane} />
+            </Route>
+            <Route exact path="/account" component={AccountPage} />
         </Switch>
-      </Container>
+      </div>
 
       <SlidingPane
         className="pane-background"
         overlayClassName="some-custom-overlay-class"
         isOpen={isPaneOpen}
-        title="Hey, it is optional pane title.  I can be React component too."
-        subtitle="Optional subtitle."
+        title="Go Back"
+        // subtitle="Optional subtitle."
         onRequestClose={() => {setPaneOpen(false)}}
-        width='500px'
-        hideHeader={true}
+        width={paneWidth}
+        hideHeader={hidePaneCloseButton}
         children={displayComponent()}
       />
       

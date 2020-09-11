@@ -5,8 +5,6 @@ import { Item, List, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 
-import {prettyShowTime} from '../helpers/Helpers'
-
 function TicketList(props) {
 
     const [shows, setShows] = useState([])
@@ -30,7 +28,6 @@ function TicketList(props) {
                 shows.push(show)
             }
         }
-
         return shows
     }
 
@@ -40,7 +37,6 @@ function TicketList(props) {
                 return ticket
             }
         })
-
         return items.length
     }
 
@@ -68,7 +64,7 @@ function TicketList(props) {
 
         return (
             <Item key={index}>
-                <Item.Image size='small' src={require(`../assets/images/${show.image_path}`)} />
+                <Item.Image size='small' src={show.poster_img_url} />
 
                 <Item.Content>
                     <div className="h3 text-white">{ show.artists[0].name}</div>
@@ -93,10 +89,7 @@ function TicketList(props) {
         )
     })
 
-    const itemList =
-        <Item.Group divided>
-            {items}
-        </Item.Group>
+    const itemList = <Item.Group divided>{items}</Item.Group>
 
     return (
         <div>

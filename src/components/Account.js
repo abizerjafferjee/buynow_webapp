@@ -58,7 +58,7 @@ function Account(props) {
     }
 
     const Login = 
-        <>
+        <div>
             {
                 props.auth.loading && <Dimmer active><Loader /></Dimmer>
             }
@@ -97,10 +97,10 @@ function Account(props) {
                 </a>
             
             </div>
-        </>
+        </div>
 
     const SignUp = 
-        <>
+        <div>
             {
                 props.signup.loading && <Dimmer active><Loader /></Dimmer>
             }
@@ -162,11 +162,11 @@ function Account(props) {
                 </a>
             
             </div>
-        </>
+        </div>
 
 
     return (
-        <div className='center'>
+        <div>
         {
             showSignIn ? <>{Login}</> : <>{SignUp}</>
         }

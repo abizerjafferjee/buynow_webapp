@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Card, Image } from 'semantic-ui-react'
-// import toastr from 'toastr'
 import { connect } from 'react-redux'
 import Moment from 'react-moment'
 
@@ -19,11 +18,9 @@ function Show(props) {
 
     return (
             <Card className="card_background" onClick={() => handleShowPane(props.show.id)}>
-            
-                {/* <Card.Header className="p-2">{props.show.artists[0].name}</Card.Header> */}
+        
                 <div className="h3 p-1">{props.show.artists[0].name}</div>
-
-                <Image className='card_image' style={imgStyle} src={require(`../assets/images/${props.show.image_path}`)} ui={false} />
+                <Image className='card_image' style={imgStyle} src={props.show.poster_img_url} ui={false} />
 
                 <div>
                     <div className="h3 p-1">{props.show.title}</div>

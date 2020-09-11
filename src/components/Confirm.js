@@ -45,7 +45,23 @@ function Confirm(props) {
 
     const messageDiv = () => {
         if (errorMessage === '') {
-            return <Header size="medium" inverted>Your purchase is complete. We'll email you your live show links. You can also find them in your profile.</Header>
+            return (
+                <div>
+                    <Header size="huge" inverted>Thank You!</Header>
+                    <Header size="medium" inverted>
+                        For supporting artists and performers through Odiance.
+                        <br></br>
+                        Enjoy the show.
+                    </Header>
+                    <br></br>
+                    <Header size="small" inverted>
+                        You will receive an email shortly that is both your receipt and will
+                        include your unique links for each ticket you have purchased for this
+                        performance.
+                    </Header>
+                    <Header size="tiny" inverted>We are redirecting you to the home page...</Header>
+                </div>
+                )
         } else {
             return <Header size="medium" color="yellow">{errorMessage}</Header>
         }
@@ -71,7 +87,10 @@ function Confirm(props) {
             {
                 status === 'confirm' ?
                 confirmDiv() :
-                <Header size="medium" inverted>We're cancelling your order...</Header>
+                <div>
+                    <Header size="medium" inverted>We're cancelling your order.</Header>
+                    <Header size="tiny" inverted>We are redirecting you to the home page...</Header>
+                </div>
             }
             </Grid.Row>
             </Grid>

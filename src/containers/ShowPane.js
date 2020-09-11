@@ -19,8 +19,9 @@ function ShowPane(props) {
         <Container fluid className="p-3">
         <Item.Group>
             <Item>
-                <Item.Image size='small' src={require(`../assets/images/${props.show.image_path}`)} />
-
+                {/* <Item.Image size='small' src={require(`../assets/images/${props.show.image_path}`)} /> */}
+                <Item.Image size='small' src={props.show.poster_img_url} />
+                
                 <Item.Content>
                     <div className="h3 text-white">{props.show.artists[0].name}</div>
                     <div className="h5 text-white">{ props.show.title }</div>

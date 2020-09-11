@@ -28,7 +28,7 @@ function Cart(props) {
         ticketPrices += element.show.show_price * element.quantity
         return (
             <Item key={index}>
-                <Item.Image size='small' src={require(`../assets/images/${element.show.image_path}`)} />
+                <Item.Image size='small' src={element.show.poster_img_url} />
 
                 <Item.Content>
                     <div className="h3 text-white">{ element.show.artists[0].name}</div>
@@ -76,17 +76,15 @@ function Cart(props) {
         
             <Divider />
 
-            <div className="d-inline-block text-white">
-                <div className="d-block h6"><b>Tickets:</b>&nbsp;&nbsp;USD {ticketPrices.toFixed(2)}</div>
-                <div className="d-block h6"><b>Taxes (13%):</b>&nbsp;&nbsp;USD {calcTaxes(ticketPrices).toFixed(2)}</div>
-                <div className="d-block h6"><b>Processing Fees (2.99% + $0.3):</b>&nbsp;&nbsp;USD {calcFees(ticketPrices).toFixed(2)}</div>
-                <div className="d-block h3"><b>Total:&nbsp;&nbsp;USD {calcTotal(ticketPrices).toFixed(2)}</b></div>
-            </div>
-            {/* <Button
-                content='Total'
-                icon='dollar'
-                label={{ basic: true, pointing: 'left', content: totalPrice.toFixed(2) }}
-            /> */}
+            { 
+                items.length > 0 &&
+                <div className="d-inline-block text-white">
+                    <div className="d-block h6"><b>Tickets:</b>&nbsp;&nbsp;USD {ticketPrices.toFixed(2)}</div>
+                    <div className="d-block h6"><b>Taxes (13%):</b>&nbsp;&nbsp;USD {calcTaxes(ticketPrices).toFixed(2)}</div>
+                    <div className="d-block h6"><b>Processing Fees (2.99% + $0.3):</b>&nbsp;&nbsp;USD {calcFees(ticketPrices).toFixed(2)}</div>
+                    <div className="d-block h3"><b>Total:&nbsp;&nbsp;USD {calcTotal(ticketPrices).toFixed(2)}</b></div>
+                </div>
+            }
 
             <Button primary floated='right' disabled={items.length <= 0} onClick={()=>props.submit()}>
                 Buy tickets
