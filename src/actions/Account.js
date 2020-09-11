@@ -1,5 +1,5 @@
 import axios from 'axios'
-import toastr from 'toastr'
+// import toastr from 'toastr'
 
 import { FETCH_ORDERS_REQUEST, FETCH_ORDERS_SUCCESS, FETCH_ORDERS_FAILURE } from '../constants/ActionTypes'
 import { serverUrl } from '../constants/Common'
@@ -27,7 +27,7 @@ export const fetchOrdersFailure = (error) => {
 export const fetchOrders = () => {
     return dispatch => {
         dispatch(fetchOrdersRequest())
-        axios.get(`${serverUrl}/shows/order/`)
+        axios.get(`${serverUrl}/api/orders/`)
             .then((res) => {
                 dispatch(fetchOrdersSuccess(res.data))
             })

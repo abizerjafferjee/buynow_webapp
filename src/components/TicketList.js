@@ -3,8 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { Item, List, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-
-import {prettyShowTime} from '../helpers/Helpers'
+import Moment from 'react-moment'
 
 function TicketList(props) {
 
@@ -29,7 +28,6 @@ function TicketList(props) {
                 shows.push(show)
             }
         }
-
         return shows
     }
 
@@ -39,7 +37,6 @@ function TicketList(props) {
                 return ticket
             }
         })
-
         return items.length
     }
 
@@ -49,10 +46,11 @@ function TicketList(props) {
             if (ticket.show.id === showId) {
                 return (
                     <List.Item key={index}>
-                        {/* <List.Icon name='github' size='large' verticalAlign='middle' /> */}
                         <List.Content>
                             <List.Header as={Link} to={`/live/${ticket.uuid}`}>{ticket.uuid}</List.Header>
-                            <List.Description as='a'>{ticket.active ? <span>Active</span> : <span>Inactive</span>}</List.Description>
+                            <List.Description>
+                                <div className="h6">{ticket.active ? <span className="text-success">Active</span> : <span className="text-secondary">Inactive</span>}</div>
+                            </List.Description>
                         </List.Content>
                     </List.Item>
                 )
@@ -66,15 +64,22 @@ function TicketList(props) {
 
         return (
             <Item key={index}>
-                <Item.Image size='tiny' src={require(`../assets/images/${show.image_path}`)} />
+                <Item.Image size='small' src={show.poster_img_url} />
 
                 <Item.Content>
-                    <Item.Header as='a'><span className="cart_font">{show.title}</span></Item.Header>
+                    <div className="h3 text-white">{ show.artists[0].name}</div>
+                    <div className="h5 text-white"><b>{ show.title }</b></div>
                     <Item.Meta>
-                        <span className='cart_font cinema'>{prettyShowTime(show.show_datetime)}</span>
+                        <div className="h5 text-white"> 
+                            <Moment 
+                                interval={0} 
+                                format="MMM Do - LT"
+                                date={show.show_datetime}     
+                            />
+                        </div>
                     </Item.Meta>
                     <Item.Description>
-                        <Header size="tiny"><span className="cart_font">You have {getTicketCount(show.id)} tickets for this show.</span></Header>
+                        <div className="text-white h5">You have {getTicketCount(show.id)} tickets for this show.</div>
                     </Item.Description>
                     <List divided relaxed>
                         {getTickets(show.id)}
@@ -84,10 +89,7 @@ function TicketList(props) {
         )
     })
 
-    const itemList =
-        <Item.Group divided>
-            {items}
-        </Item.Group>
+    const itemList = <Item.Group divided>{items}</Item.Group>
 
     return (
         <div>

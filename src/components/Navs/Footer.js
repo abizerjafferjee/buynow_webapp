@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Input, Icon, Label, Image, Header } from 'semantic-ui-react'
+import { Menu, Header } from 'semantic-ui-react'
 
 function Footer({className}) {
 

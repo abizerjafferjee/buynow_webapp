@@ -29,7 +29,7 @@ export const clearStripe = () => {
 
 export const updatePaymentStatus = (orderId, payment_status) => {
     return dispatch => {
-        axios.patch(`${serverUrl}/shows/order/${orderId}/`, {payment_status: payment_status})
+        axios.patch(`${serverUrl}/api/orders/${orderId}/`, {payment_status: payment_status})
             .then((res) => {
                 if (payment_status === 2) {
                     dispatch(stripePaymentStatus(true))
@@ -46,16 +46,3 @@ export const updatePaymentStatus = (orderId, payment_status) => {
             })
     }
 }
-
-// export const deleteOrder = (orderId) => {
-//     return dispatch => {
-//         axios.patch(`/shows/order/${orderId}/`, {payment_status: 2})
-//             .then((res) => {
-//                 console.log('successful')
-//             })
-//             .catch((err) => {
-//                 console.log(err)
-//                 console.log('something went wrong on our side. please contact support to get it resolved. Sorry for the inconvenience.')
-//             })
-//     }
-// }

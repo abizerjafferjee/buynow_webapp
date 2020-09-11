@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/ActionTypes'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../constants/ActionTypes'
 import { fetchShows } from './Shows'
 import { serverUrl } from '../constants/Common'
 
@@ -84,13 +84,35 @@ export const checkAuthorizationToken = (token) => {
     }
 }
 
+export const signUpRequest = () => {
+    return {
+        type: SIGNUP_REQUEST
+    }
+}
+
+export const signupSuccess = () => {
+    return {
+        type: SIGNUP_SUCCESS
+    }
+}
+
+export const signupFailure = (error) => {
+    return {
+        type: SIGNUP_FAILURE,
+        payload: error
+    }
+}
+
 export const userSignupRequest = (userInfo) => {
     return dispatch => {
+        dispatch(signUpRequest())
         axios.post(`${serverUrl}/accounts/users/`, userInfo)
         .then((res) => {
             console.log('Welcome! Your account is available now.')
+            dispatch(signupSuccess())
         })
         .catch((error) => {
+            dispatch(signupFailure(error.response))
             if (error.response.status === 400 && error.response.data.username[0] === 'A user with that username already exists.') {
                 console.log('A user with that username already exists.')
             }

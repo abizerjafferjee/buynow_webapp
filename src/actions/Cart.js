@@ -1,6 +1,6 @@
 import axios from 'axios'
 import _ from 'lodash'
-import toastr from 'toastr'
+// import toastr from 'toastr'
 
 import { setStripeCheckout } from './Stripe'
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../constants/ActionTypes'
@@ -45,7 +45,7 @@ export const placeOrder = (items) => {
             quantitiesArr.push(element.quantity)
         })
 
-        axios.post(`${serverUrl}/shows/order/`, {shows: showsArr, quantities: quantitiesArr, prices: pricesArr, total_price: totalPrice.toFixed(2)})
+        axios.post(`${serverUrl}/api/orders/`, {shows: showsArr, quantities: quantitiesArr, prices: pricesArr, total_price: totalPrice.toFixed(2)})
             .then((res) => {
                 const orderId = res.data.id
                 const checkoutId = res.data.stripe_session.id

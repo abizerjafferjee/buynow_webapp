@@ -1,21 +1,37 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
+import _ from 'lodash'
 
 import ShowList from '../components/ShowList'
 import { fetchShows } from '../actions/Shows'
 import { addToCart } from '../actions/Cart'
+import { setShowDisplay } from '../actions/Panel' 
 
 const Home = (props) => {
+
+  const {slug} = useParams()
 
   useEffect(() => {
     props.fetchShows()
   }, [])
 
+  useEffect(() => {
+    if (slug !== undefined){
+      var showId = _.result(_.find(props.shows, (obj) => {
+                    return obj.slug === slug 
+                  }), 'id')
+
+      if (showId !== undefined) {
+        props.setShowDisplay(showId)
+      }
+    }
+  }, [props.shows])
+
   return (
     <>
-      <ShowList shows={props.shows} addToCart={props.addToCart} />
+      <ShowList shows={props.shows} addToCart={props.addToCart} history={props.history} />
     </>
   );
 }
@@ -23,7 +39,8 @@ const Home = (props) => {
 Home.propTypes = {
   shows: PropTypes.array,
   fetchShows: PropTypes.func.isRequired,
-  addToCart: PropTypes.func.isRequired
+  addToCart: PropTypes.func.isRequired,
+  setShowDisplay: PropTypes.func.isRequired
 }
 
 const mapStateToProps = (state) => {
@@ -32,4 +49,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, {fetchShows, addToCart})(Home);
+export default connect(mapStateToProps, { fetchShows, addToCart, setShowDisplay })(Home);
