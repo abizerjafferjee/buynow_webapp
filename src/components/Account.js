@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import { Form, Message, Loader, Dimmer } from 'semantic-ui-react'
 // import _ from 'lodash'
 
+import { requestPasswordReset } from '../actions/Auth'
+
 function Account(props) {
 
     const [usernameOrEmail, setUsernameOrEmail] = useState('');
@@ -13,10 +15,13 @@ function Account(props) {
     const [signupPassword, setSignupPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('');
 
-    const [showSignIn, setShowSignIn] = useState(true)
+    const [resetEmail, setResetEmail] = useState('')
+    const [resetSuccess, setResetSuccess] = useState(null)
 
-    function handleToggleForms() {
-        setShowSignIn(!showSignIn)
+    const [form, setForm] = useState('signin')
+
+    function handleToggleForms(form) {
+        setForm(form)
     }
 
     function handleLoginOnChange(e) {
@@ -57,6 +62,42 @@ function Account(props) {
         props.userSignupRequest(createUser)
     }
 
+    function handleResetForm(e) {
+        e.preventDefault()
+        requestPasswordReset(resetEmail)
+        .then((res) => {
+            setResetSuccess(true)
+        })
+        .catch((err) => {
+            setResetSuccess(false)
+        })
+    }
+
+    const PasswordReset = 
+        <div>
+            <div className='center-child'>
+                { resetSuccess === true && <Message color='green'>A password reset email has been sent.</Message> }
+                { resetSuccess === false && <Message color='red'>Could not send a password reset email.</Message> }
+                <Form>
+                    <label className='h5 site-font'>E-mail</label>
+                    <Form.Input
+                        icon='mail'
+                        iconPosition='left'
+                        name='resetEmail'
+                        value={resetEmail}
+                        placeholder='E-mail'
+                        onChange={(e) => setResetEmail(e.target.value)}
+                        error={typeof props.auth.error !== 'undefined'}
+                        size="big"
+                    />
+                    <button type="button" className="btn btn-primary" onClick={handleResetForm}>Reset</button>
+                </Form>
+                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signin')}>
+                    <u>Sign In</u>
+                </a>
+            </div>
+        </div>
+
     const Login = 
         <div>
             {
@@ -67,18 +108,18 @@ function Account(props) {
                     props.auth.error && <Message color='red'>Log in failed, please check your credentials again.</Message>
                 }
                 <Form>
-                    <label className='text-white h5'>Username or E-mail</label>
+                    <label className='h5 site-font'>Username</label>
                     <Form.Input
                         icon='user'
                         iconPosition='left'
                         name='usernameOrEmail'
                         value={usernameOrEmail}
-                        placeholder='Username or E-mail'
+                        placeholder='Username'
                         onChange={handleLoginOnChange}
                         error={typeof props.auth.error !== 'undefined'}
                         size="big"
                     />
-                    <label className='text-white h5'>Password</label>
+                    <label className='h5 site-font'>Password</label>
                     <Form.Input
                         icon='lock'
                         iconPosition='left'
@@ -90,12 +131,14 @@ function Account(props) {
                         error={typeof props.auth.error !== 'undefined'}
                         size="big"
                     />
-                    <button type="button" className="btn btn-primary" onClick={handleUserLogin}>Sign In</button>
+                    <button type="button" className="btn btn-primary site-font" onClick={handleUserLogin}>Sign In</button>
                 </Form>
-                <a className="d-block text-center text-white h5 m-4" onClick={()=>handleToggleForms()}>
+                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signup')}>
                     <u>Don't have an account?</u>
                 </a>
-            
+                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('passwordreset')}>
+                    <u>Forgot Password</u>
+                </a>
             </div>
         </div>
 
@@ -112,7 +155,7 @@ function Account(props) {
                     props.signup.success && <Message color='green'>Your account is now available. Sign in to continue.</Message>
                 }
                 <Form>
-                    <label className='text-white h5'>Username</label>
+                    <label className='h5 site-font'>Username</label>
                     <Form.Input
                         icon='user'
                         iconPosition='left'
@@ -122,7 +165,7 @@ function Account(props) {
                         onChange={handleSignupOnChange}
                         size="big"
                     />
-                    <label className='text-white h5'>Email</label>
+                    <label className='h5 site-font'>Email</label>
                     <Form.Input
                         icon='mail'
                         iconPosition='left'
@@ -132,7 +175,7 @@ function Account(props) {
                         onChange={handleSignupOnChange}
                         size="big"
                     />
-                    <label className='text-white h5'>Password</label>
+                    <label className='h5 site-font'>Password</label>
                     <Form.Input
                         icon='lock'
                         iconPosition='left'
@@ -143,7 +186,7 @@ function Account(props) {
                         onChange={handleSignupOnChange}
                         size="big"
                     />
-                    <label className='text-white h5'>Confirm Password</label>
+                    <label className='h5 site-font'>Confirm Password</label>
                     <Form.Input
                         icon='lock'
                         iconPosition='left'
@@ -154,24 +197,30 @@ function Account(props) {
                         onChange={handleSignupOnChange}
                         size="big"
                     />
-                    <button type="button" className="btn btn-primary" onClick={handleUserSignup}>Sign Up</button>
+                    <button type="button" className="btn btn-primary site-font" onClick={handleUserSignup}>Sign Up</button>
 
                 </Form>
-                <a className="d-block text-center text-white h5 m-4" onClick={()=>handleToggleForms()}>
+                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signin')}>
                     <u>Already have an account?</u>
                 </a>
             
             </div>
         </div>
 
+    function getForm() {
+        if (form === 'signin') {
+            return Login
+        } else if (form === 'signup') {
+            return SignUp
+        } else if (form === 'passwordreset') {
+            return PasswordReset
+        }
+    }
 
     return (
-        <div>
-        {
-            showSignIn ? <>{Login}</> : <>{SignUp}</>
-        }
+        <div className="mt-5 pt-5">
+        { getForm() }
         </div>
-
     )
 }
 

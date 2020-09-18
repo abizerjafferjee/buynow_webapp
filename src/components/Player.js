@@ -54,14 +54,14 @@ function Player(props) {
                     <Item.Image size='small' src={ props.liveshow.show.poster_img_url } />
 
                     <Item.Content>
-                        <div className="h2 text-white">{ props.liveshow.show.title }</div>
-                        <div className="h4 text-white">{ props.liveshow.show.artists[0].name }</div>
+                        <div className="h2 site-font">{ props.liveshow.show.title }</div>
+                        <div className="h4 site-font">{ props.liveshow.show.artists[0].name }</div>
                         <Item.Description>
-                            <div className="h5 text-white"> 
+                            <div className="h5 site-font"> 
                                 <Moment fromNow>
                                     {props.liveshow.show.show_datetime} 
                                 </Moment>
-                                <div className="h5 text-white"> 
+                                <div className="h5 site-font"> 
                                     <Moment 
                                         interval={0} 
                                         format="MMM Do - LT"

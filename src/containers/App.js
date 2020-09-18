@@ -4,11 +4,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Container, Responsive } from 'semantic-ui-react'
 import ReactGA from 'react-ga';
-// import { render } from "react-dom";
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
+// import { render } from "react-dom";
 // import classNames from 'classnames'
-
 
 import Home from './Home';
 import AccountPage from './AccountPage';
@@ -19,6 +18,9 @@ import PlayerPage from './PlayerPage'
 import Header from '../components/Navs/Header';
 import Footer from '../components/Navs/Footer';
 import Confirm from '../components/Confirm.js'
+import Policies from '../components/Static/Policies.js'
+import Faq from '../components/Static/Faq.js'
+import ResetPassword from './ResetPassword.js'
 import { filterShows } from '../actions/Shows'
 import { checkAuthorizationToken } from '../actions/Auth'
 
@@ -69,9 +71,9 @@ function App(props) {
   }, [location]);
 
   useEffect(() => {
-    if (localStorage.jwtToken) {
-      props.checkAuthorizationToken(localStorage.jwtToken)
-    }
+    // if (localStorage.jwtToken) {
+    //   props.checkAuthorizationToken(localStorage.jwtToken)
+    // }
     if (w <= Responsive.onlyMobile.maxWidth) {
       setPaneWidth('320px')
       setHidePaneCloseButton(false)
@@ -117,6 +119,9 @@ function App(props) {
                 <CartPage handleTogglePane={togglePane} />
             </Route>
             <Route exact path="/account" component={AccountPage} />
+            <Route path={["/policies", "/policies/:doc"]} component={Policies} />
+            <Route path="/reset/:token" component={ResetPassword} />
+            <Route path="/faq" component={Faq} />
         </Switch>
       </div>
 
@@ -125,7 +130,6 @@ function App(props) {
         overlayClassName="some-custom-overlay-class"
         isOpen={isPaneOpen}
         title="Go Back"
-        // subtitle="Optional subtitle."
         onRequestClose={() => {setPaneOpen(false)}}
         width={paneWidth}
         hideHeader={hidePaneCloseButton}

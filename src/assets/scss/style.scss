@@ -1,8 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
-
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap');
+// <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed:wght@100..900, | Fira+Sans:wght@100..900 ;display=swap">
+    
 // General
 .site-font {
   color: white;
+  font-family: 'Fira Sans', sans-serif;
+}
+
+.just-font {
+  font-family: 'Fira Sans', sans-serif;
 }
 
 // Home
@@ -14,16 +21,12 @@
 
   .ui.card.card_background {
     background-color: #262626;
-    font-family: 'Alata', sans-serif;
+    font-family: 'Fira Sans', sans-serif;
     color: white;
     font-size: 20px;
     padding: 5px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     border-radius: 5%;
-    // height: 400px;
-    // width: 20%;
-    // box-shadow: inset 38px 0px 45px 0px #c82020, inset 0px 10px 10px 0px #000;
-    // box-shadow: 0.5px 0.5px 0.5px 0.5px #888888;
   }
 
   .ui.cards a.card:hover {
@@ -101,18 +104,22 @@
     width:80%;
     height:auto;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    // align-self: center;
-    // overflow:auto;
   }
   ​.player_img{
     height:auto;
   }​
 
+// Static
+
+.policies {
+  background-color: white;
+  color: white;
+}
+
 // General
   .center {
     height: 100%;
     position: relative;
-    // border: 3px solid green;
   }
 
   .center-child {

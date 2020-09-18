@@ -73,12 +73,13 @@ export const checkAuthorizationToken = (token) => {
     return dispatch => {
         axios.post(`${serverUrl}/accounts/accounts-token-verify/`, { token })
             .then((res) => {
-                dispatch(renewAuthorizationToken(res.data.token))
+                // dispatch(renewAuthorizationToken(res.data.token))
             })
             .catch((error) => {
-                if (error.response.status === 400 && error.response.data.non_field_errors[0] === 'Signature has expired.') {
-                    dispatch(logout())
-                    dispatch(fetchShows())
+                if (error.response !== undefined) {
+                    if (error.response.status === 400 && error.response.data.non_field_errors[0] === 'Signature has expired.') {
+                        dispatch(logout())
+                    }
                 }
             })
     }
@@ -108,14 +109,17 @@ export const userSignupRequest = (userInfo) => {
         dispatch(signUpRequest())
         axios.post(`${serverUrl}/accounts/users/`, userInfo)
         .then((res) => {
-            console.log('Welcome! Your account is available now.')
             dispatch(signupSuccess())
         })
         .catch((error) => {
             dispatch(signupFailure(error.response))
-            if (error.response.status === 400 && error.response.data.username[0] === 'A user with that username already exists.') {
-                console.log('A user with that username already exists.')
-            }
+            // if (error.response.status === 400 && error.response.data.username[0] === 'A user with that username already exists.') {
+            //     console.log('A user with that username already exists.')
+            // }
         })
     }
+}
+
+export const requestPasswordReset = (resetEmail) => {
+    return axios.post(`${serverUrl}/accounts/password_reset/reset_password/`, { email: resetEmail })
 }

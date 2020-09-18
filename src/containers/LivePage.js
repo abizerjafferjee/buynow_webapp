@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Header, Form, Button, Container } from 'semantic-ui-react'
@@ -21,7 +21,7 @@ function LivePage(props) {
         <Container fluid>
             <center className="p-5">
                 <div className="ticket-form-width">
-                    <div className='text-white h2 p-3'><b>Use your ticket to enter the live show</b></div>
+                    <div className='h2 p-3 site-font'>Use your ticket to enter the live show</div>
                     <Form>
                         <Form.Input
                             icon='ticket'
@@ -32,7 +32,7 @@ function LivePage(props) {
                             onChange={handleTicketChange}
                             size="big"
                         />
-                        <Button primary type='submit' onClick={handleTicketForm}>Enter</Button>
+                        <Button primary type='submit' onClick={handleTicketForm}><span className="site-font">Enter</span></Button>
                     </Form>
                 </div>
             </center>

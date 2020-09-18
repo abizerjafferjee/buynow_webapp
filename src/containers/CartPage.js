@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import { Header, Loader, Dimmer } from 'semantic-ui-react'
+import { Header, Loader, Dimmer, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 // import { withRouter, Link } from 'react-router-dom'
 // import toastr from 'toastr'
@@ -63,8 +63,8 @@ function CartPage(props) {
     }
 
     const accountPlaceHolder = 
-        <div className='center'>
-            <a className='center-child' href='#' onClick={() => props.handleTogglePane('account')}>Login to view cart</a>
+        <div className="p-2">
+            <a className="h4 site-font" href="#" onClick={() => props.handleTogglePane('account')}>Login to view cart</a>
         </div>
 
     return (
@@ -75,9 +75,11 @@ function CartPage(props) {
                 {
                     loading && <Dimmer active><Loader /></Dimmer>
                 }
-                <Header as='h2' inverted dividing>
+                <div className="h2 site-font text-white">
                     CART
-                </Header>
+                </div>
+
+                <Divider />
                 <Cart
                     cart={props.cart}
                     handleRemoveItem={handleRemoveItem}
