@@ -13,14 +13,16 @@ function Profile(props) {
 
     return (
         <div>
-            <Header as='h2' inverted dividing>
+            <div className="h2 site-font text-white">
                 TICKETS
-            </Header>
+            </div>
+
+            <Divider />
 
             <TicketList tickets={props.tickets} />
 
             <Divider />
-            <div className="d-block text-white h6">
+            <div className="d-block text-white h6 site-font">
                 Logged in as <b>{props.auth.user.username}</b>
                 <div className="float-right"
                     onClick={handleUserLogout}>

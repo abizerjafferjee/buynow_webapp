@@ -47,29 +47,29 @@ function Confirm(props) {
         if (errorMessage === '') {
             return (
                 <div>
-                    <Header size="huge" inverted>Thank You!</Header>
-                    <Header size="medium" inverted>
+                    <div className="h1 site-font">Thank You!</div>
+                    <div className="h2 site-font">
                         For supporting artists and performers through Odiance.
                         <br></br>
                         Enjoy the show.
-                    </Header>
+                    </div>
                     <br></br>
-                    <Header size="small" inverted>
+                    <div className="h5 site-font">
                         You will receive an email shortly that is both your receipt and will
                         include your unique links for each ticket you have purchased for this
                         performance.
-                    </Header>
-                    <Header size="tiny" inverted>We are redirecting you to the home page...</Header>
+                    </div>
+                    <div className="h2 site-font">We are redirecting you to the home page...</div>
                 </div>
                 )
         } else {
-            return <Header size="medium" color="yellow">{errorMessage}</Header>
+            return <div className="h4 site-font text-warning">{errorMessage}</div>
         }
     }
 
     const confirmDiv = () => {
         if (loading) {
-            return <Header size="medium" inverted>Processing your tickets now</Header>
+            return <div className="h2 site-font">Processing your tickets now</div>
         } else {
             return messageDiv()
         }
@@ -88,8 +88,8 @@ function Confirm(props) {
                 status === 'confirm' ?
                 confirmDiv() :
                 <div>
-                    <Header size="medium" inverted>We're cancelling your order.</Header>
-                    <Header size="tiny" inverted>We are redirecting you to the home page...</Header>
+                    <div className="h2 site-font">We're cancelling your order.</div>
+                    <div className="h5 site-font">We are redirecting you to the home page...</div>
                 </div>
             }
             </Grid.Row>

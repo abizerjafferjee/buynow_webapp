@@ -49,7 +49,7 @@ function TicketList(props) {
                         <List.Content>
                             <List.Header as={Link} to={`/live/${ticket.uuid}`}>{ticket.uuid}</List.Header>
                             <List.Description>
-                                <div className="h6">{ticket.active ? <span className="text-success">Active</span> : <span className="text-secondary">Inactive</span>}</div>
+                                <div className="h6 site-font">{ticket.active ? <span className="text-success">Active</span> : <span className="text-secondary">Inactive</span>}</div>
                             </List.Description>
                         </List.Content>
                     </List.Item>
@@ -67,10 +67,10 @@ function TicketList(props) {
                 <Item.Image size='small' src={show.poster_img_url} />
 
                 <Item.Content>
-                    <div className="h3 text-white">{ show.artists[0].name}</div>
-                    <div className="h5 text-white"><b>{ show.title }</b></div>
+                    <div className="site-font h3">{ show.artists[0].name}</div>
+                    <div className="h5 site-font"><b>{ show.title }</b></div>
                     <Item.Meta>
-                        <div className="h5 text-white"> 
+                        <div className="h5 site-font"> 
                             <Moment 
                                 interval={0} 
                                 format="MMM Do - LT"
@@ -79,7 +79,7 @@ function TicketList(props) {
                         </div>
                     </Item.Meta>
                     <Item.Description>
-                        <div className="text-white h5">You have {getTicketCount(show.id)} tickets for this show.</div>
+                        <div className="h5 site-font">You have {getTicketCount(show.id)} tickets for this show.</div>
                     </Item.Description>
                     <List divided relaxed>
                         {getTickets(show.id)}
@@ -92,7 +92,7 @@ function TicketList(props) {
     const itemList = <Item.Group divided>{items}</Item.Group>
 
     return (
-        <div>
+        <div className="site-font">
             {shows.length > 0 ? itemList : <p>No shows for you :(</p>}
         </div>
     )

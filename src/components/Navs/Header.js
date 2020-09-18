@@ -18,22 +18,22 @@ const DesktopContainer = ({children, getWidth, props}) => (
             </Menu.Item>
 
             <Menu.Menu position='right'>
-                <Menu.Item name='LIVE' color='blue' style={{color:'white'}} as={Link} to='/live'>
-                    LIVE
+                <Menu.Item name='LIVE' as={Link} to='/live'>
+                    <div className="h4 site-font text-white">LIVE</div>
                 </Menu.Item>
 
                 <Menu.Item onClick={()=>props.handleTogglePane('account')}>
                     {
                         props.auth.isAuthenticated ? 
                         <Icon size='large' name='user circle' inverted /> :
-                        <span className="text-white">LOGIN</span>
+                        <div className="h4 site-font text-white">LOGIN</div>
                     }
                 </Menu.Item>
 
                 <Menu.Item>
                     <Button onClick={()=>props.handleTogglePane('cart')} icon inverted className="cart-btn">
                         <Icon size='large' name='cart' />
-                        <Label style={{zIndex:0}}color='red' floating>{props.itemsInCartCount}</Label>
+                        <Label style={{zIndex:0}} color='red' floating>{props.itemsInCartCount}</Label>
                     </Button>
                 </Menu.Item>
 

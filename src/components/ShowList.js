@@ -9,7 +9,7 @@ function ShowList(props) {
 
     const w = window.outerWidth
     const cardWidth = 320
-    const [itemsPerRow, setItemsPerRow] = useState(1)
+    const [itemsPerRow, setItemsPerRow] = useState(5)
 
     useEffect(() => {
         setItemsPerRow(Math.round(w/cardWidth))

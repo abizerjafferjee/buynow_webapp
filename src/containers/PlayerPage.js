@@ -48,11 +48,11 @@ function PlayerPage(props) {
 
     function showError(error) {
         if (error.response.status === 404) {
-            return <div className="text-white">Ticket not found</div>
+            return <div className="site-font">Ticket not found</div>
         } else if (error.response.status === 423) {
-            return <div className="text-white">Ticket is being used on another device</div>
+            return <div className="site-font">Ticket is being used on another device</div>
         } else {
-            return <div className="text-white">Something went wrong</div>
+            return <div className="site-font">Something went wrong</div>
         }
     }
 
