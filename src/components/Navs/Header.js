@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu, Icon, Label, Image, Button, Responsive } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import _ from 'lodash'
+// import _ from 'lodash'
 import MobileDetect from "mobile-detect";
 
 const DesktopContainer = ({children, getWidth, props}) => (

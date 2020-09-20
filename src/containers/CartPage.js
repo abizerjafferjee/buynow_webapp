@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
-import { Header, Loader, Dimmer, Divider } from 'semantic-ui-react'
+import { Loader, Dimmer, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 // import { withRouter, Link } from 'react-router-dom'
 // import toastr from 'toastr'
@@ -64,7 +64,7 @@ function CartPage(props) {
 
     const accountPlaceHolder = 
         <div className="p-2">
-            <a className="h4 site-font" href="#" onClick={() => props.handleTogglePane('account')}>Login to view cart</a>
+            <div className="h4 site-font" style={{pointer:'cursor'}} onClick={() => props.handleTogglePane('account')}>Login to view cart</div>
         </div>
 
     return (

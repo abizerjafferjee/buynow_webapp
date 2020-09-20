@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Divider, Message, Header } from 'semantic-ui-react'
+import { Divider } from 'semantic-ui-react'
 // import _ from 'lodash'
 
 import TicketList from './TicketList'

@@ -2,7 +2,7 @@ import React, {useEffect, useState } from 'react';
 import { useLocation, Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Container, Responsive } from 'semantic-ui-react'
+import { Responsive } from 'semantic-ui-react'
 import ReactGA from 'react-ga';
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
@@ -42,7 +42,7 @@ function App(props) {
   const [paneWidth, setPaneWidth] = useState('500px')
 
   let location = useLocation();
-  const w = window.outerWidth
+  // const w = window.outerWidth
 
   function togglePane(componentName) {
     setPaneComponent(componentName)
@@ -74,6 +74,7 @@ function App(props) {
     // if (localStorage.jwtToken) {
     //   props.checkAuthorizationToken(localStorage.jwtToken)
     // }
+    const w = window.outerWidth
     if (w <= Responsive.onlyMobile.maxWidth) {
       setPaneWidth('320px')
       setHidePaneCloseButton(false)
@@ -95,6 +96,7 @@ function App(props) {
         setFocusShow(show[0])
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.panel])
 
   return (

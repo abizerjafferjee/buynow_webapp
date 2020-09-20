@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import { SET_STRIPE_CHECKOUT, SET_PAYMENT_STATUS, CLEAR_STRIPE } from '../constants/ActionTypes'
-import { clearCart } from './Cart'
+// import { clearCart } from './Cart'
 import { serverUrl } from '../constants/Common'
 
 export const setStripeCheckout = (checkoutId) => {

@@ -37,6 +37,7 @@
   .card_image {
     // height: 72%;
     height: 288px;
+    width: 100%;
   }
 
 // Cart
@@ -144,11 +145,32 @@
     transition: opacity 0.5s ease 0s, background-color 0.5s ease 0s, color 0.5s ease 0s, box-shadow 0.5s ease 0s, background 0.5s ease 0s;
   }
 
-// @import "./navbar";
-// media
+  .show-container {
+    position: relative;
+    // background-color: white;
+    // text-align: center;
+    // overflow: hidden;
+  }
+  
+
+  .bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    color: white;
+    background-color: black;
+    padding: 0.2rem;
+    // display: inline;
+    // font-weight: bold;
+    
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
 
 @media screen and (max-width: 600px) {
   .ticket-form-width {
     width: 100%;
   }
 }
+
+@import "./bootstrap_custom.scss";
