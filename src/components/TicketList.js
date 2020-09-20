@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { Item, List, Header } from 'semantic-ui-react'
+import { Item, List } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Moment from 'react-moment'
 

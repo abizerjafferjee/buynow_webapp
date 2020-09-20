@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { List } from 'semantic-ui-react'
-import { useParams, useLocation } from 'react-router-dom'
+// import { List } from 'semantic-ui-react'
+import { useLocation } from 'react-router-dom'
 
 import {TermsOfSales, TermsOfService, PrivacyPolicy, BroadCasterAgreement} from './PolicyDocuments'
 
@@ -14,6 +14,7 @@ function Policies() {
         if (paths.length > 2) {
             setPolicy(paths[2])
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function getPolicy(policy) {

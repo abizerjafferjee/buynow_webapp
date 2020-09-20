@@ -13,6 +13,7 @@ function ShowList(props) {
 
     useEffect(() => {
         setItemsPerRow(Math.round(w/cardWidth))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     let showList = _.map(props.shows, (show, index) => {

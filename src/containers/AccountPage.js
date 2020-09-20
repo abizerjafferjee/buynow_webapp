@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import _ from 'lodash'
+// import { withRouter } from 'react-router-dom'
+// import _ from 'lodash'
 
 import Account from '../components/Account'
 import Profile from '../components/Profile'
@@ -17,6 +17,7 @@ function AccountPage(props) {
             props.fetchOrders()
             props.fetchTickets()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.auth])
 
     return (

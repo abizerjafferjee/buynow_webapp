@@ -1,21 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Item, Header, Button, Container, Dimmer, Loader, Image } from 'semantic-ui-react'
-import { useParams, useLocation } from 'react-router-dom'
+import { Dimmer, Loader } from 'semantic-ui-react'
+import { useParams } from 'react-router-dom'
 
 import Player from "../components/Player"
 import { fetchLiveShow, updateLiveShow, clearLiveShow } from '../actions/LiveShow'
 
 function PlayerPage(props) {
 
-    const [liveshow, setLiveShow] = useState(null)
+    // const [liveshow, setLiveShow] = useState(null)
     const {ticket} = useParams()
 
     useEffect(() => {
         if (ticket !== undefined) {
             props.fetchLiveShow(ticket)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ticket]);
 
     useEffect(() => {
@@ -23,6 +24,7 @@ function PlayerPage(props) {
             // setLiveShow(props.liveshow.data)
             updateLiveShow(props.liveshow.data.uuid, true)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.liveshow])
 
     function closeShow(event) {
@@ -44,6 +46,7 @@ function PlayerPage(props) {
             }
             window.removeEventListener('unload', closeShow)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function showError(error) {

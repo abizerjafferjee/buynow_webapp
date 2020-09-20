@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Header } from 'semantic-ui-react'
+import { Menu } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 function Footer({className}) {

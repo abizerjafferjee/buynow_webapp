@@ -73,6 +73,10 @@ function Account(props) {
         })
     }
 
+    const style = {
+        cursor: "pointer"
+    }
+
     const PasswordReset = 
         <div>
             <div className='center-child'>
@@ -92,9 +96,9 @@ function Account(props) {
                     />
                     <button type="button" className="btn btn-primary" onClick={handleResetForm}>Reset</button>
                 </Form>
-                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signin')}>
+                <div className="d-block text-center site-font text-white h5 m-4" style={style} onClick={()=>handleToggleForms('signin')}>
                     <u>Sign In</u>
-                </a>
+                </div>
             </div>
         </div>
 
@@ -133,12 +137,12 @@ function Account(props) {
                     />
                     <button type="button" className="btn btn-primary site-font" onClick={handleUserLogin}>Sign In</button>
                 </Form>
-                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signup')}>
+                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signup')}>
                     <u>Don't have an account?</u>
-                </a>
-                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('passwordreset')}>
+                </div>
+                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('passwordreset')}>
                     <u>Forgot Password</u>
-                </a>
+                </div>
             </div>
         </div>
 
@@ -200,9 +204,9 @@ function Account(props) {
                     <button type="button" className="btn btn-primary site-font" onClick={handleUserSignup}>Sign Up</button>
 
                 </Form>
-                <a className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signin')}>
+                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signin')}>
                     <u>Already have an account?</u>
-                </a>
+                </div>
             
             </div>
         </div>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { Header, Form, Button, Container, Message } from 'semantic-ui-react'
+// import PropTypes from 'prop-types'
+// import { connect } from 'react-redux'
+import { Form, Button, Container, Message } from 'semantic-ui-react'
 import axios from 'axios'
 import { serverUrl } from '../constants/Common'
 

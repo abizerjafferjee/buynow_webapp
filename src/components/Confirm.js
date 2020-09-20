@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Header, Loader, Container, Grid } from 'semantic-ui-react'
+import { Loader, Container, Grid } from 'semantic-ui-react'
 
 import { updatePaymentStatus, clearStripe } from '../actions/Stripe'
 
@@ -25,6 +25,7 @@ function Confirm(props) {
                 }, 3000)
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -41,6 +42,7 @@ function Confirm(props) {
                 setErrorMessage('Something went wrong on our side. Please contact support to get it resolved. Sorry for the inconvenience.')
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.stripe])
 
     const messageDiv = () => {

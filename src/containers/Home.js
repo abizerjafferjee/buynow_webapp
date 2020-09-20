@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import _ from 'lodash'
 
 import ShowList from '../components/ShowList'
@@ -15,6 +15,7 @@ const Home = (props) => {
 
   useEffect(() => {
     props.fetchShows()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -27,6 +28,7 @@ const Home = (props) => {
         props.setShowDisplay(showId)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.shows])
 
   return (

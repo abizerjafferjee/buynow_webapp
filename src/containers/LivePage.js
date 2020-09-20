@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Header, Form, Button, Container } from 'semantic-ui-react'
+import { Form, Button, Container } from 'semantic-ui-react'
 
 function LivePage(props) {
     
     const [ticketId, setTicketId] = useState('')
 
     function handleTicketChange(e) {
-        const {name, value} = e.target
+        const {value} = e.target
         setTicketId(value)
     }
 

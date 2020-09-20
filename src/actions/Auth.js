@@ -2,7 +2,6 @@ import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../constants/ActionTypes'
-import { fetchShows } from './Shows'
 import { serverUrl } from '../constants/Common'
 
 export const loginRequest = (username) => {

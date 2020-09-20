@@ -1,11 +1,11 @@
 import React from 'react'
-import { Item, Header, Button, Container, Dimmer, Loader, Image } from 'semantic-ui-react'
+import { Item, Container } from 'semantic-ui-react'
 import ReactPlayer from "react-player"
 import Moment from 'react-moment'
-import moment from 'moment'
+// import moment from 'moment'
 
-import Credit from "./Credits"
-import NotStreamingIcon from "../helpers/not_streaming";
+// import Credit from "./Credits"
+// import NotStreamingIcon from "../helpers/not_streaming";
 
 const fallbackUrl =
     "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
@@ -19,7 +19,9 @@ const playerConfigs = {
 
 function Player(props) {
 
-    const videoUrl = fallbackUrl
+    console.log(props.liveshow.show)
+
+    const videoUrl = props.liveshow.show.hls_url !== "" ? props.liveshow.show.hls_url : fallbackUrl
     
     //             <Container fluid className="mb-3">
     //                 <center>
