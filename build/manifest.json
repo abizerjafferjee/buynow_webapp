@@ -3,7 +3,7 @@
   "name": "Odiance - Music Live Streaming Platform",
   "icons": [
     {
-      "src": "Odiance_Favicon.ico",
+      "src": "favicon.ico",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
