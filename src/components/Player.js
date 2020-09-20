@@ -19,7 +19,9 @@ const playerConfigs = {
 
 function Player(props) {
 
-    const videoUrl = fallbackUrl
+    console.log(props.liveshow.show)
+
+    const videoUrl = props.liveshow.show.hls_url !== "" ? props.liveshow.show.hls_url : fallbackUrl
     
     //             <Container fluid className="mb-3">
     //                 <center>
