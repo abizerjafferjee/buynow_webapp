@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/static/css/main.054f5647.chunk.css",
-    "main.js": "/static/js/main.fd11e936.chunk.js",
-    "main.js.map": "/static/js/main.fd11e936.chunk.js.map",
+    "main.js": "/static/js/main.0490a6b1.chunk.js",
+    "main.js.map": "/static/js/main.0490a6b1.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.010d5a95.js",
     "runtime-main.js.map": "/static/js/runtime-main.010d5a95.js.map",
     "static/css/2.4433b899.chunk.css": "/static/css/2.4433b899.chunk.css",
     "static/js/2.91417fff.chunk.js": "/static/js/2.91417fff.chunk.js",
     "static/js/2.91417fff.chunk.js.map": "/static/js/2.91417fff.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.783c842154d9496da5cbed887b911d32.js": "/precache-manifest.783c842154d9496da5cbed887b911d32.js",
+    "precache-manifest.d71d858758b5b888bfe1e0e3a68385ef.js": "/precache-manifest.d71d858758b5b888bfe1e0e3a68385ef.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.4433b899.chunk.css.map": "/static/css/2.4433b899.chunk.css.map",
     "static/css/main.054f5647.chunk.css.map": "/static/css/main.054f5647.chunk.css.map",
     "static/js/2.91417fff.chunk.js.LICENSE.txt": "/static/js/2.91417fff.chunk.js.LICENSE.txt",
-    "static/media/odiance-logo.svg": "/static/media/odiance-logo.98fd036a.svg",
+    "static/media/odiance-logo.svg": "/static/media/odiance-logo.60d42906.svg",
     "static/media/soundcloud_icon.jpg": "/static/media/soundcloud_icon.f865949b.jpg",
     "static/media/spotify_icon.png": "/static/media/spotify_icon.529997dc.png"
   },
@@ -23,6 +23,6 @@
     "static/css/2.4433b899.chunk.css",
     "static/js/2.91417fff.chunk.js",
     "static/css/main.054f5647.chunk.css",
-    "static/js/main.fd11e936.chunk.js"
+    "static/js/main.0490a6b1.chunk.js"
   ]
 }

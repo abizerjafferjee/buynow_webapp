@@ -25,7 +25,7 @@ yarn-error.log*
 
 ## Project
 dist/*
-public/*
+# public/*
 
 ## Node.js
 lib-cov
