@@ -93,7 +93,7 @@ function TicketList(props) {
 
     return (
         <div className="site-font">
-            {shows.length > 0 ? itemList : <p>No shows for you :(</p>}
+            {shows.length > 0 ? itemList : <p>You don't have any tickets.</p>}
         </div>
     )
 }

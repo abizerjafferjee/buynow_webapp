@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5cfd8dadc14ee580299430d59e5d01b9",
+    "revision": "3c7c4ac7783fa9ca58bf4ff22b727faa",
     "url": "/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.4433b899.chunk.css"
   },
   {
-    "revision": "34b339928bf06846d0b1",
+    "revision": "782926c9aef6e719304e",
     "url": "/static/css/main.054f5647.chunk.css"
   },
   {
@@ -20,16 +20,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.91417fff.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "34b339928bf06846d0b1",
-    "url": "/static/js/main.fd11e936.chunk.js"
+    "revision": "782926c9aef6e719304e",
+    "url": "/static/js/main.0490a6b1.chunk.js"
   },
   {
     "revision": "8b2ddfbb19e6f6f7ff9a",
     "url": "/static/js/runtime-main.010d5a95.js"
   },
   {
-    "revision": "98fd036a442acc41867a0735837a487c",
-    "url": "/static/media/odiance-logo.98fd036a.svg"
+    "revision": "60d4290600b2b5e3b1a7a3ebf2e68f0e",
+    "url": "/static/media/odiance-logo.60d42906.svg"
   },
   {
     "revision": "f865949b09c64c4b9c1e41a76e60e860",
