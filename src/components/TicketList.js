@@ -67,7 +67,7 @@ function TicketList(props) {
                 <Item.Image size='small' src={show.poster_img_url} />
 
                 <Item.Content>
-                    <div className="site-font h3">{ show.artists[0].name}</div>
+                    <div className="site-font h3">{ show.artist.name}</div>
                     <div className="h5 site-font"><b>{ show.title }</b></div>
                     <Item.Meta>
                         <div className="h5 site-font"> 

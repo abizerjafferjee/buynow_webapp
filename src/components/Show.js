@@ -8,8 +8,6 @@ import {setShowDisplay} from '../actions/Panel'
 
 function Show(props) {
 
-    console.log(props.show)
-
     function handleShowPane(showId) {
         props.setShowDisplay(showId)
     }
@@ -21,7 +19,7 @@ function Show(props) {
     return (
             <Card className="card_background" onClick={() => handleShowPane(props.show.id)}>
         
-                <div className="h3 p-1">{props.show.artists[0].name}</div>
+                <div className="h3 p-1">{props.show.artist && props.show.artist.name}</div>
 
                 <div className="show-container">
                     <Image className='card_image' style={imgStyle} src={props.show.poster_img_url} ui={false} />

@@ -1,20 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import { Card } from 'semantic-ui-react'
 
 import Show from './Show'
 
+function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+  }
+
 function ShowList(props) {
 
-    const w = window.outerWidth
+    const [width, height] = useWindowSize();
     const cardWidth = 320
-    const [itemsPerRow, setItemsPerRow] = useState(5)
-
-    useEffect(() => {
-        setItemsPerRow(Math.round(w/cardWidth))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    const itemsPerRow = Math.round(width / cardWidth)
 
     let showList = _.map(props.shows, (show, index) => {
         return (

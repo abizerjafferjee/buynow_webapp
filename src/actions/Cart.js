@@ -1,10 +1,8 @@
 import axios from 'axios'
 import _ from 'lodash'
-// import toastr from 'toastr'
-
-import { setStripeCheckout } from './Stripe'
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../constants/ActionTypes'
 import { serverUrl } from '../constants/Common'
+import { setStripeCheckout } from './Stripe'
 
 export const addToCart = (show, quantity) => {
     return {
@@ -49,7 +47,6 @@ export const placeOrder = (items) => {
             .then((res) => {
                 const orderId = res.data.id
                 const checkoutId = res.data.stripe_session.id
-                localStorage.setItem('orderId', orderId)
                 dispatch(setStripeCheckout(checkoutId))
             })
         

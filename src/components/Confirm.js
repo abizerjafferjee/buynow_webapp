@@ -1,49 +1,49 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Loader, Container, Grid } from 'semantic-ui-react'
 
-import { updatePaymentStatus, clearStripe } from '../actions/Stripe'
+import axios from 'axios'
+
+import { updatePaymentStatus } from '../actions/Stripe'
 
 function Confirm(props) {
 
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('')
+    const {status, uuid} = useParams()
 
-    const {status, id} = useParams()
-    const orderId = localStorage.getItem('orderId')
+    function updatePayment(payment_status, uuid) {
+        updatePaymentStatus(payment_status, uuid)
+        .then((res) => {
+            setLoading(false)
+            setTimeout(() => {
+                props.history.push('/')
+            }, 5000)
+        })
+        .catch((err) => {
+            setLoading(false)
+            if (err.response.status === 403) {
+                setErrorMessage('This order has already been completed. If your payment was confirmed then you should have received tickets on your email. Please contact support if you still need help.')
+            } else {
+                setErrorMessage('Something went wrong on our side. Please contact support to get it resolved. Sorry for the inconvenience.')
+            }
+            setTimeout(() => {
+                props.history.push('/')
+            }, 3000)
+        })
+    }
 
     useEffect(() => {
-        if (orderId !== null) {
+        if (status !== undefined && uuid !== undefined) {
             if (status === 'confirm') {
-                props.updatePaymentStatus(orderId, 2)
+                updatePayment(2, uuid)
             } else if (status === 'cancel') {
-                props.updatePaymentStatus(orderId, 3)
-                setTimeout(() => {
-                    props.history.push('/')
-                }, 3000)
+                updatePayment(3, uuid)
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    useEffect(() => {
-        if ('status' in props.stripe) {
-            if (props.stripe.status === true) {
-                setLoading(false)
-                props.clearStripe()
-                setTimeout(() => {
-                    props.history.push('/')
-                }, 5000)
-            } else if (props.stripe.status === false) {
-                props.clearStripe()
-                setLoading(false)
-                setErrorMessage('Something went wrong on our side. Please contact support to get it resolved. Sorry for the inconvenience.')
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.stripe])
 
     const messageDiv = () => {
         if (errorMessage === '') {
@@ -100,16 +100,4 @@ function Confirm(props) {
     )
 }
 
-Confirm.propTypes = {
-    stripe: PropTypes.object.isRequired,
-    updatePaymentStatus: PropTypes.func.isRequired,
-    clearStripe: PropTypes.func.isRequired
-}
-
-const mapStateToProps = (state) => {
-    return {
-        stripe: state.stripe
-    }
-}
-
-export default connect(mapStateToProps, { updatePaymentStatus, clearStripe })(Confirm)
+export default Confirm
