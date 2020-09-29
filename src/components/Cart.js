@@ -31,7 +31,7 @@ function Cart(props) {
                 <Item.Image size='small' src={element.show.poster_img_url} />
 
                 <Item.Content>
-                    <div className="h3 site-font">{ element.show.artists[0].name}</div>
+                    <div className="h3 site-font">{ element.show.artist.name}</div>
                     <div className="h5 site-font"><b>{ element.show.title }</b></div>
 
                     <Item.Meta>

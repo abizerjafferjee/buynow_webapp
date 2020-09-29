@@ -47,7 +47,7 @@ function ShowPane(props) {
                 <Item.Image size='small' src={props.show.poster_img_url} />
                 
                 <Item.Content>
-                    <div className="h3 site-font">{props.show.artists[0].name}</div>
+                    <div className="h3 site-font">{props.show.artist.name}</div>
                     <div className="h5 site-font">{ props.show.title }</div>
                     <Divider />
                     <Item.Meta>
@@ -65,7 +65,7 @@ function ShowPane(props) {
                 </Item.Content>
             </Item>
             </Item.Group>
-            { artistLinks(props.show.artists[0]) }
+            { artistLinks(props.show.artist) }
             {
                 props.show.description !== "No description" && <div className="mt-1 h4 site-font">{ props.show.description }</div>
             }

@@ -21,7 +21,7 @@ function Player(props) {
 
     console.log(props.liveshow.show)
 
-    const videoUrl = props.liveshow.show.hls_url !== "" ? props.liveshow.show.hls_url : fallbackUrl
+    const videoUrl = props.liveshow.show.hls_url !== null ? props.liveshow.show.hls_url : fallbackUrl
     
     //             <Container fluid className="mb-3">
     //                 <center>
@@ -45,8 +45,8 @@ function Player(props) {
                         config={playerConfigs}
                         url={videoUrl}
                         playing
-                        width='100%'
-                        height='100%'
+                        width='70%'
+                        height='50%'
                     />
                 </div>
             </Container>
@@ -57,7 +57,7 @@ function Player(props) {
 
                     <Item.Content>
                         <div className="h2 site-font">{ props.liveshow.show.title }</div>
-                        <div className="h4 site-font">{ props.liveshow.show.artists[0].name }</div>
+                        <div className="h4 site-font">{ props.liveshow.show.artist.name }</div>
                         <Item.Description>
                             <div className="h5 site-font"> 
                                 <Moment fromNow>
@@ -75,32 +75,6 @@ function Player(props) {
                     </Item.Content>
                 </Item>
             </Item.Group>
-
-            {/* <div className="intro">
-                <div className="row p-4">
-                    <div className="col" align="right">
-                        <div className="player_img"><Image size="small" src={ props.liveshow.show.poster_img_url } /></div>
-                    </div>
-                    <div className="col-10">
-                        <div align="left">
-                            <div className="display-3">{ props.liveshow.show.title }</div>
-                            <div className="h4">{ props.liveshow.show.artists[0].name }</div>
-                            <div className="h5 text-white"> 
-                                <Moment fromNow>
-                                    {props.liveshow.show.show_datetime} 
-                                </Moment>
-                                <div className="h5 text-white"> 
-                                    <Moment 
-                                        interval={0} 
-                                        format="MMM Do - LT"
-                                        date={ props.liveshow.show.show_datetime }     
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
         </div>
     )

@@ -114,7 +114,7 @@ function App(props) {
         <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/shows/:slug" component={Home} />
-            <Route exact path="/tickets/:status/:id" component={Confirm} />
+            <Route exact path="/tickets/:status/:uuid" component={Confirm} />
             <Route exact path="/live" component={LivePage} />
             <Route path="/live/:ticket" component={PlayerPage} />
             <Route exact path="/cart">
