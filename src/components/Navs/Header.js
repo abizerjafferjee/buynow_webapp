@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Menu, Icon, Label, Image, Button, Responsive } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-// import _ from 'lodash'
 import MobileDetect from "mobile-detect";
 
 const DesktopContainer = ({children, getWidth, props}) => (
@@ -22,7 +21,7 @@ const DesktopContainer = ({children, getWidth, props}) => (
                     <div className="h4 site-font text-white">LIVE</div>
                 </Menu.Item>
 
-                <Menu.Item onClick={()=>props.handleTogglePane('account')}>
+                <Menu.Item onClick={()=>props.setPanelComponent('account')}>
                     {
                         props.auth.isAuthenticated ? 
                         <Icon size='large' name='user circle' inverted /> :
@@ -31,7 +30,7 @@ const DesktopContainer = ({children, getWidth, props}) => (
                 </Menu.Item>
 
                 <Menu.Item>
-                    <Button onClick={()=>props.handleTogglePane('cart')} icon inverted className="cart-btn">
+                    <Button onClick={()=>props.setPanelComponent('cart')} icon inverted className="cart-btn">
                         <Icon size='large' name='cart' />
                         <Label style={{zIndex:0}} color='red' floating>{props.itemsInCartCount}</Label>
                     </Button>
@@ -103,11 +102,9 @@ function Navbar(props) {
 }
 
 Navbar.propTypes = {
-    showSearch: PropTypes.bool.isRequired,
     itemsInCartCount: PropTypes.number.isRequired,
     shows: PropTypes.array,
     filterShows: PropTypes.func.isRequired,
-    handleTogglePane: PropTypes.func.isRequired,
     auth: PropTypes.object
 }
 
