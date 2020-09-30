@@ -5,24 +5,12 @@ import { Card } from 'semantic-ui-react'
 
 import Show from './Show'
 
-function useWindowSize() {
-    const [size, setSize] = useState([0, 0]);
-    useLayoutEffect(() => {
-      function updateSize() {
-        setSize([window.innerWidth, window.innerHeight]);
-      }
-      window.addEventListener('resize', updateSize);
-      updateSize();
-      return () => window.removeEventListener('resize', updateSize);
-    }, []);
-    return size;
-  }
+import { useWindowSize } from '../helpers/Helpers'
 
 function ShowList(props) {
 
     const [width, height] = useWindowSize();
-    const cardWidth = 320
-    const itemsPerRow = Math.round(width / cardWidth)
+    const itemsPerRow = Math.round(width / 320)
 
     let showList = _.map(props.shows, (show, index) => {
         return (
@@ -37,8 +25,7 @@ function ShowList(props) {
     return (
         <Card.Group 
             className="py-5" 
-            itemsPerRow={itemsPerRow} 
-            style={{border:'none'}}
+            itemsPerRow={itemsPerRow}
         >
             {showList}
         </Card.Group>

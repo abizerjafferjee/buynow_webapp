@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import jwtDecode from 'jwt-decode'
 
-import App from './containers/App'
+import App from './App'
 import rootReducer from './reducers/index'
 import { loginSuccess, setAuthorizationToken } from './actions/Auth'
 
