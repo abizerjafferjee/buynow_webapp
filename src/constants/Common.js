@@ -4,5 +4,4 @@ export const TOASTR_OPTIONS = {
     positionClass: 'toast-bottom-left'
 }
 
-// export const serverUrl = 'http://localhost:8000'
-export const serverUrl = 'https://api.odiance.com'
+export const REACT_APP_GA_CODE = 'UA-179310211-1'

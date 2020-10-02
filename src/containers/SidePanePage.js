@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import SlidingPane from "react-sliding-pane";
 import "react-sliding-pane/dist/react-sliding-pane.css";
+import ReactGA from 'react-ga'
 
 import AccountPage from './AccountPage';
 import CartPage from './CartPage'
@@ -10,17 +11,20 @@ import ShowPane from './ShowPane'
 import { useWindowSize } from '../helpers/Helpers'
 
 function PaneChild({paneComponent,...props}) {
-    switch (paneComponent) {
-      case 'account':
-        return <AccountPage />
-      case 'cart':
-        return <CartPage />
-      case 'show':
-        return <ShowPane show={props.show} />
-      default:
-        return <div className="h3 text-white">Nothing Selected</div>
-    }
+
+  ReactGA.modalview(`/${paneComponent}`)
+
+  switch (paneComponent) {
+    case 'account':
+      return <AccountPage />
+    case 'cart':
+      return <CartPage />
+    case 'show':
+      return <ShowPane show={props.show} />
+    default:
+      return <div className="h3 text-white">Nothing Selected</div>
   }
+}
   
 function SidePane(props) {
   

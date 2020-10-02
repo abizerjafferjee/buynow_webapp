@@ -1,8 +1,7 @@
-import axios from 'axios'
 import jwtDecode from 'jwt-decode'
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../constants/ActionTypes'
-import { serverUrl } from '../constants/Common'
+import { axiosInstance } from '../constants/Axios'
 
 export const loginRequest = (username) => {
     return {
@@ -27,15 +26,15 @@ export const loginFailure = (error) => {
 
 export const setAuthorizationToken = (token) => {
     if (token) {
-        axios.defaults.headers.common['Authorization'] = `JWT ${token}`
+        axiosInstance.defaults.headers.common['Authorization'] = `JWT ${token}`
     } else {
-        delete axios.defaults.headers.common['Authorization']
+        delete axiosInstance.defaults.headers.common['Authorization']
     }
 }
 
 export const renewAuthorizationToken = (token) => {
     return dispatch => {
-        axios.post(`${serverUrl}/accounts/accounts-token-refresh/`, { token })
+        axiosInstance.post(`/accounts/accounts-token-refresh/`, { token })
     }
 }
 
@@ -43,7 +42,7 @@ export const login = (username, password) => {
 
     return dispatch => {
         dispatch(loginRequest(username))
-        axios.post(`${serverUrl}/accounts/accounts-token-auth/`, {username, password})
+        axiosInstance.post(`/accounts/accounts-token-auth/`, {username, password})
             .then((response) => {
                 let token = response.data.token
                 localStorage.setItem('jwtToken', token)
@@ -70,7 +69,7 @@ export const logout = () => {
 
 export const checkAuthorizationToken = (token) => {
     return dispatch => {
-        axios.post(`${serverUrl}/accounts/accounts-token-verify/`, { token })
+        axiosInstance.post(`/accounts/accounts-token-verify/`, { token })
             .then((res) => {
                 // dispatch(renewAuthorizationToken(res.data.token))
             })
@@ -106,7 +105,7 @@ export const signupFailure = (error) => {
 export const userSignupRequest = (userInfo) => {
     return dispatch => {
         dispatch(signUpRequest())
-        axios.post(`${serverUrl}/accounts/users/`, userInfo)
+        axiosInstance.post(`/accounts/users/`, userInfo)
         .then((res) => {
             dispatch(signupSuccess())
         })
@@ -120,5 +119,5 @@ export const userSignupRequest = (userInfo) => {
 }
 
 export const requestPasswordReset = (resetEmail) => {
-    return axios.post(`${serverUrl}/accounts/password_reset/reset_password/`, { email: resetEmail })
+    return axiosInstance.post(`/accounts/password_reset/reset_password/`, { email: resetEmail })
 }

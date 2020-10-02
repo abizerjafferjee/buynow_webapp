@@ -3,16 +3,24 @@ import PropTypes from 'prop-types'
 import { Button, Divider, Container, Item, List, Image } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Moment from 'react-moment'
+import ReactGA from 'react-ga'
+import { FacebookShareButton, TwitterShareButton, FacebookIcon, TwitterIcon } from 'react-share'
 
 import { addToCart } from '../actions/Cart'
+import { serverUrl } from '../constants/Axios'
 
 function ShowPane(props) {
-    console.log(props.show)
     const [disabled , setDisabled] = useState(false)
 
     function handleAddToCart() {
         props.addToCart(props.show, 1)
         setDisabled(true)
+        ReactGA.event({
+            'category':'Show',
+            'action':'Add to Cart',
+            'label':'Button',
+            'value':props.show.title
+        })
     }
 
     function artistLinks(artist) {
@@ -24,31 +32,49 @@ function ShowPane(props) {
                 { 
                     isYoutube && 
                     <List.Item>
-                        <Image 
-                            avatar 
-                            src={require('../assets/images/youtube_icon.png')}
-                            href={artist.youtube_link}
-                        />
+                        <ReactGA.OutboundLink
+                            eventLabel="Youtube"
+                            to={artist.youtube_link}
+                            target="_blank"
+                        >
+                            <Image 
+                                avatar 
+                                src={require('../assets/images/youtube_icon.png')}
+                                href={artist.youtube_link}
+                            />
+                        </ReactGA.OutboundLink>
                     </List.Item>
                 }
                 { 
                     isSpotify && 
                     <List.Item>
-                        <Image
-                            avatar 
-                            src={require('../assets/images/spotify_icon.png')}
-                            href={artist.spotify_link}        
-                        />
+                        <ReactGA.OutboundLink
+                            eventLabel="Spotify"
+                            to={artist.spotify_link}
+                            target="_blank"
+                        >
+                            <Image
+                                avatar 
+                                src={require('../assets/images/spotify_icon.png')}
+                                href={artist.spotify_link}        
+                            />
+                        </ReactGA.OutboundLink>
                     </List.Item>
                 }
                 { 
                     isSoundCloud && 
                     <List.Item>
-                        <Image 
-                            avatar 
-                            src={require('../assets/images/soundcloud_icon.jpg')}
-                            href={artist.soundcloud_link}
-                        />
+                        <ReactGA.OutboundLink
+                            eventLabel="Soundcloud"
+                            to={artist.soundcloud_link}
+                            target="_blank"
+                        >
+                            <Image 
+                                avatar 
+                                src={require('../assets/images/soundcloud_icon.jpg')}
+                                href={artist.soundcloud_link}
+                            />
+                        </ReactGA.OutboundLink>
                     </List.Item>
                 }
             </List>
@@ -94,11 +120,34 @@ function ShowPane(props) {
             </Item.Group>
             { artistLinks(props.show.artist) }
             {
-                props.show.description !== "No description" &&
+                props.show.description !== null &&
                 <div className="mt-1 h4 site-font">
                     { props.show.description }
                 </div>
             }
+            <Divider />
+            <List horizontal>
+                <List.Item>
+                    <div className="h5 site-font">
+                        Share this show with your friends
+                    </div>
+                </List.Item>
+                <List.Item>
+                    <FacebookShareButton
+                        url={`${serverUrl}/shows/${props.show.slug}`}
+                    >
+                        <FacebookIcon size={32} round={true} />
+                    </FacebookShareButton>
+                </List.Item>
+                <List.Item>
+                    <TwitterShareButton
+                        url={`${serverUrl}/shows/${props.show.slug}`}
+                    >
+                        <TwitterIcon size={32} round={true} />
+                    </TwitterShareButton>
+                </List.Item>
+            </List>
+
         </Container>
     )
 }

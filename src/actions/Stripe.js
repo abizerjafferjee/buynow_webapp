@@ -1,6 +1,5 @@
-import axios from 'axios'
 import { SET_STRIPE_CHECKOUT } from '../constants/ActionTypes'
-import { serverUrl } from '../constants/Common'
+import { axiosInstance } from '../constants/Axios'
 
 
 export const setStripeCheckout = (checkoutId) => {
@@ -13,5 +12,5 @@ export const setStripeCheckout = (checkoutId) => {
 }
 
 export function updatePaymentStatus(payment_status, uuid) {
-    return axios.patch(`${serverUrl}/api/orders/${uuid}/payment_status/`, {payment_status: payment_status})
+    return axiosInstance.patch(`/api/orders/${uuid}/payment_status/`, {payment_status: payment_status})
 }

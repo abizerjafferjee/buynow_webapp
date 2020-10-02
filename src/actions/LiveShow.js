@@ -1,6 +1,5 @@
-import axios from 'axios'
+import { axiosInstance } from '../constants/Axios'
 import { LIVESHOW_REQUEST, LIVESHOW_SUCCESS, LIVESHOW_FAILURE, LIVESHOW_CLEAR } from '../constants/ActionTypes'
-import { serverUrl } from '../constants/Common'
 
 export const liveshowRequest = (ticketId) => {
     return {
@@ -32,10 +31,9 @@ export const liveshowClear = () => {
 export const fetchLiveShow = (ticketId) => {
     return dispatch => {
         dispatch(liveshowRequest(ticketId))
-        axios.get(`${serverUrl}/api/tickets/${ticketId}/ticket/`)
+        axiosInstance.get(`/api/tickets/${ticketId}/ticket/`)
             .then((res) => {
                 dispatch(liveshowSuccess(res.data))
-                localStorage.setItem('liveshowId', res.data.uuid)
             })
             .catch((err) => {
                 dispatch(liveshowFailure(err))
@@ -43,13 +41,13 @@ export const fetchLiveShow = (ticketId) => {
     }
 }
 
-export const updateLiveShow = (ticketId, active) => {
-    axios.patch(`${serverUrl}/api/tickets/${ticketId}/ticket/`, {active: active})
-}
-
-export const clearLiveShow = () => {
+export const updateLiveShow = (ticketId) => {
     return dispatch => {
-        localStorage.removeItem('liveshowId')
-        dispatch(liveshowClear())
+        axiosInstance.patch(`/api/tickets/${ticketId}/ticket/`, {})
+        .then((res) => {
+            dispatch(liveshowClear())
+        })
+        .catch((err) => {
+        })
     }
 }

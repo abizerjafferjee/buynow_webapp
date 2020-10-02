@@ -64,5 +64,4 @@ AccountPage.propTypes = {
     fetchTickets: PropTypes.func.isRequired
 }
 
-
 export default connect(mapStateToProps, { login, logout, userSignupRequest, fetchOrders, fetchTickets})(AccountPage)

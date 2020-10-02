@@ -2,14 +2,12 @@ import React from 'react'
 import { Item, Container } from 'semantic-ui-react'
 import ReactPlayer from "react-player"
 import Moment from 'react-moment'
-// import moment from 'moment'
 
 // import Credit from "./Credits"
 // import NotStreamingIcon from "../helpers/not_streaming";
 
 const fallbackUrl =
     "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8";
-
 
 const playerConfigs = {
     file: {
@@ -18,8 +16,6 @@ const playerConfigs = {
 }
 
 function Player(props) {
-
-    console.log(props.liveshow.show)
 
     const videoUrl = props.liveshow.show.hls_url !== null ? props.liveshow.show.hls_url : fallbackUrl
     
@@ -35,9 +31,8 @@ function Player(props) {
 
     return (
         <div>
-
-            <Container fluid>
-                <div className='player-wrapper p-3'>
+            <div className="row">
+                <div className="col-lg-8 col-md-7 col-sm-12">
                     <ReactPlayer
                         className='player'
                         controls
@@ -45,11 +40,13 @@ function Player(props) {
                         config={playerConfigs}
                         url={videoUrl}
                         playing
-                        width='70%'
-                        height='50%'
+                        width='100%'
+                        height='100%'
                     />
                 </div>
-            </Container>
+                <div className="col-lg-4 col-md-5 col-sm-12">
+                </div>
+            </div>
 
             <Item.Group>
                 <Item>
@@ -75,7 +72,6 @@ function Player(props) {
                     </Item.Content>
                 </Item>
             </Item.Group>
-
         </div>
     )
 }

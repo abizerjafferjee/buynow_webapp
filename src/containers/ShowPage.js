@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import _ from 'lodash'
-import axios from 'axios'
 
 import ShowPane from './ShowPane'
+import { axiosInstance } from '../constants/Axios'
 
 function ShowPage(props) {
     const { slug } = useParams()
@@ -12,7 +12,7 @@ function ShowPage(props) {
     const [errorMessage, setErrorMessage] = useState('Loading show...')
     
     function getShowBySlug(slug) {
-        axios.get(`http://localhost:8000/api/read-shows/${slug}/slug/`)
+        axiosInstance.get(`/api/read-shows/${slug}/slug/`)
         .then((res) => {
             setShow(res.data)
         })

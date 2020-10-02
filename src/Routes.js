@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation, Switch, Route } from 'react-router-dom';
 
+import withTracker from './helpers/withTracker'
 import Home from './containers/HomePage';
 import AccountPage from './containers/AccountPage';
 import CartPage from './containers/CartPage'
@@ -15,16 +16,16 @@ import ResetPassword from './containers/ResetPassword.js'
 function Routes (props) {
     return (
         <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/shows/:slug" component={ShowPage} />
-            <Route exact path="/tickets/:status/:uuid" component={Confirm} />
-            <Route exact path="/live" component={LivePage} />
-            <Route path="/live/:ticket" component={PlayerPage} />
-            <Route exact path="/cart" component={CartPage} />
-            <Route exact path="/account" component={AccountPage} />
-            <Route path="/reset/:token" component={ResetPassword} />
-            <Route path={["/policies", "/policies/:doc"]} component={Policies} />
-            <Route path="/faq" component={Faq} />
+            <Route exact path="/" component={withTracker(Home)} />
+            <Route exact path="/shows/:slug" component={withTracker(ShowPage)} />
+            <Route exact path="/tickets/:status/:uuid" component={withTracker(Confirm)} />
+            <Route exact path="/live" component={withTracker(LivePage)} />
+            <Route path="/live/:ticket" component={withTracker(PlayerPage)} />
+            <Route exact path="/cart" component={withTracker(CartPage)} />
+            <Route exact path="/account" component={withTracker(AccountPage)} />
+            <Route path="/reset/:token" component={withTracker(ResetPassword)} />
+            <Route path={["/policies", "/policies/:doc"]} component={withTracker(Policies)} />
+            <Route path="/faq" component={withTracker(Faq)} />
         </Switch>
     )
 }

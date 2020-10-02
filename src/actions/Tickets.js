@@ -1,8 +1,5 @@
-import axios from 'axios'
-// import toastr from 'toastr'
-
+import { axiosInstance } from '../constants/Axios'
 import { FETCH_TICKETS_REQUEST, FETCH_TICKETS_SUCCESS, FETCH_TICKETS_FAILURE } from '../constants/ActionTypes'
-import { serverUrl } from '../constants/Common'
 
 export const fetchTicketsRequest = () => {
     return {
@@ -27,7 +24,7 @@ export const fetchTicketsFailure = (error) => {
 export const fetchTickets = () => {
     return dispatch => {
         dispatch(fetchTicketsRequest())
-        axios.get(`${serverUrl}/api/tickets/`)
+        axiosInstance.get(`/api/tickets/`)
             .then((res) => {
                 dispatch(fetchTicketsSuccess(res.data))
             })
