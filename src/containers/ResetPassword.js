@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom'
 // import PropTypes from 'prop-types'
 // import { connect } from 'react-redux'
 import { Form, Button, Container, Message } from 'semantic-ui-react'
-import axios from 'axios'
-import { serverUrl } from '../constants/Common'
+import { axiosInstance } from '../constants/Axios'
 
 function ResetPassword(props) {
 
@@ -14,7 +13,7 @@ function ResetPassword(props) {
 
     function handleForm(e) {
         e.preventDefault()
-        axios.post(`${serverUrl}/accounts/password_reset/confirm/`, { token: token, password: password })
+        axiosInstance.post(`/accounts/password_reset/confirm/`, { token: token, password: password })
             .then((res) => {
                 setResetSuccess(true)
                 setTimeout(() => {

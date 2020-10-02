@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Loader, Dimmer, Divider } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { loadStripe } from '@stripe/stripe-js';
+import ReactGA from 'react-ga'
 
 import Cart from '../components/Cart'
 import { removeFromCart, clearCart, placeOrder, addToCart } from '../actions/Cart'
@@ -39,6 +40,11 @@ function CartPage(props) {
     function submit() {
         setLoading(true)
         props.placeOrder(props.cart)
+        ReactGA.event({
+            'category':'Cart',
+            'action':'Buy Tickets',
+            'label':'Button'
+        })
     }
 
     const notAuthenticatedMessage = 

@@ -13,30 +13,20 @@ import { fetchShows, filterShows } from './actions/Shows'
 import { checkAuthorizationToken } from './actions/Auth'
 import { setPanelComponent } from './actions/Panel'
 import { useWindowSize } from './helpers/Helpers'
+import { REACT_APP_GA_CODE } from './constants/Common'
 
-ReactGA.initialize(process.env.REACT_APP_GA_CODE)
-
-function trackPage (page) {
-  ReactGA.set({ page })
-  ReactGA.pageview(page)
-}
+// ReactGA.initialize(process.env.REACT_APP_GA_CODE)
+ReactGA.initialize(REACT_APP_GA_CODE)
 
 function App(props) {
-
-  let location = useLocation()
-
+  
   useEffect(() => {
     // if (localStorage.jwtToken) {
     //   props.checkAuthorizationToken(localStorage.jwtToken)
     // }
     props.fetchShows()
   }, [])
-    
-  // useEffect(() => {
-  //   const page = location.pathname;
-  //   trackPage(page);
-  // }, [location]);
-
+  
   return (
     <div>
       <Header

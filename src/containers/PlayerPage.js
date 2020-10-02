@@ -1,52 +1,45 @@
+
 import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Dimmer, Loader } from 'semantic-ui-react'
-import { useParams } from 'react-router-dom'
+import { useParams, Prompt, withRouter } from 'react-router-dom'
 
 import Player from "../components/Player"
-import { fetchLiveShow, updateLiveShow, clearLiveShow } from '../actions/LiveShow'
+import { fetchLiveShow, updateLiveShow } from '../actions/LiveShow'
 
 function PlayerPage(props) {
 
-    // const [liveshow, setLiveShow] = useState(null)
     const {ticket} = useParams()
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (ticket !== undefined) {
             props.fetchLiveShow(ticket)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ticket]);
+    }, [ticket])
 
-    useEffect(() => {
-        if (props.liveshow.data !== undefined) {
-            // setLiveShow(props.liveshow.data)
-            updateLiveShow(props.liveshow.data.uuid, true)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.liveshow])
-
-    function closeShow(event) {
+    function onComponentClose(event) {
         event.preventDefault()
-        const uuid = localStorage.getItem('liveshowId')
-        if (uuid !== undefined) {
-            updateLiveShow(uuid, false)
-            props.clearLiveShow()
+        closeShow()
+    }
+
+    function closeShow() {
+        if (ticket !== undefined) {
+            props.updateLiveShow(ticket, false)
         }
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
-        window.addEventListener('unload', closeShow)
+        window.addEventListener('unload', onComponentClose)
+        const unlisten = props.history.listen((location, action) => {
+            closeShow()
+        })
         return () => {
-            const uuid = localStorage.getItem('liveshowId')
-            if (uuid !== undefined) {
-                updateLiveShow(uuid, false)
-                props.clearLiveShow()
-            }
-            window.removeEventListener('unload', closeShow)
+            window.removeEventListener('unload', onComponentClose)
+            unlisten()
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function showError(error) {
@@ -60,25 +53,26 @@ function PlayerPage(props) {
     }
 
     return (
-        <div className="p-3">
-            { props.liveshow.isLoading && <Dimmer active><Loader /></Dimmer> }
-            { props.liveshow.error && showError(props.liveshow.error) }
-            { props.liveshow.data !== undefined && <Player liveshow={props.liveshow.data} /> }
-        </div>
+        <React.Fragment>
+            <div className="p-3">
+                { props.liveshow.isLoading && <Dimmer active><Loader /></Dimmer> }
+                { props.liveshow.error && showError(props.liveshow.error) }
+                { props.liveshow.data !== undefined && <Player liveshow={props.liveshow.data} /> }
+            </div>
+        </React.Fragment>
     )
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        auth: state.auth,
         liveshow: state.liveshow
     }
 }
 
 PlayerPage.propTypes = {
-    auth: PropTypes.object.isRequired,
     liveshow: PropTypes.object,
-    fetchLiveShow: PropTypes.func.isRequired
+    fetchLiveShow: PropTypes.func.isRequired,
+    updateLiveShow: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, {fetchLiveShow, clearLiveShow})(PlayerPage)
+export default withRouter(connect(mapStateToProps, {fetchLiveShow, updateLiveShow})(PlayerPage))

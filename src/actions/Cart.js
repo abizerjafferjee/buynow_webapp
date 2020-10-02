@@ -1,7 +1,6 @@
-import axios from 'axios'
 import _ from 'lodash'
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../constants/ActionTypes'
-import { serverUrl } from '../constants/Common'
+import { axiosInstance } from '../constants/Axios'
 import { setStripeCheckout } from './Stripe'
 
 export const addToCart = (show, quantity) => {
@@ -43,7 +42,7 @@ export const placeOrder = (items) => {
             quantitiesArr.push(element.quantity)
         })
 
-        axios.post(`${serverUrl}/api/orders/`, {shows: showsArr, quantities: quantitiesArr, prices: pricesArr, total_price: totalPrice.toFixed(2)})
+        axiosInstance.post(`/api/orders/`, {shows: showsArr, quantities: quantitiesArr, prices: pricesArr, total_price: totalPrice.toFixed(2)})
             .then((res) => {
                 const orderId = res.data.id
                 const checkoutId = res.data.stripe_session.id

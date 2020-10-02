@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Form, Message, Loader, Dimmer } from 'semantic-ui-react'
-// import _ from 'lodash'
+import ReactGA from 'react-ga'
 
 import { requestPasswordReset } from '../actions/Auth'
 
@@ -20,10 +20,6 @@ function Account(props) {
 
     const [form, setForm] = useState('signin')
 
-    function handleToggleForms(form) {
-        setForm(form)
-    }
-
     function handleLoginOnChange(e) {
         const { name, value } = e.target
         if (name === 'usernameOrEmail') {
@@ -36,6 +32,11 @@ function Account(props) {
     function handleUserLogin(e) {
         e.preventDefault()
         props.login(usernameOrEmail, password)
+        ReactGA.event({
+            'category':'Account',
+            'action':'Login',
+            'label':'Button'
+        })
     }
 
     function handleSignupOnChange(e) {
@@ -60,6 +61,11 @@ function Account(props) {
             confirmPassword: confirmPassword
         }
         props.userSignupRequest(createUser)
+        ReactGA.event({
+            'category':'Account',
+            'action':'Signup',
+            'label':'Button'
+        })
     }
 
     function handleResetForm(e) {
@@ -96,7 +102,7 @@ function Account(props) {
                     />
                     <button type="button" className="btn btn-primary" onClick={handleResetForm}>Reset</button>
                 </Form>
-                <div className="d-block text-center site-font text-white h5 m-4" style={style} onClick={()=>handleToggleForms('signin')}>
+                <div className="d-block text-center site-font text-white h5 m-4" style={style} onClick={()=>setForm('signin')}>
                     <u>Sign In</u>
                 </div>
             </div>
@@ -137,10 +143,10 @@ function Account(props) {
                     />
                     <button type="button" className="btn btn-primary site-font" onClick={handleUserLogin}>Sign In</button>
                 </Form>
-                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signup')}>
+                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>setForm('signup')}>
                     <u>Don't have an account?</u>
                 </div>
-                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('passwordreset')}>
+                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>setForm('passwordreset')}>
                     <u>Forgot Password</u>
                 </div>
             </div>
@@ -204,7 +210,7 @@ function Account(props) {
                     <button type="button" className="btn btn-primary site-font" onClick={handleUserSignup}>Sign Up</button>
 
                 </Form>
-                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>handleToggleForms('signin')}>
+                <div style={style} className="d-block text-center site-font text-white h5 m-4" onClick={()=>setForm('signin')}>
                     <u>Already have an account?</u>
                 </div>
             

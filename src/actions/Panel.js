@@ -22,7 +22,6 @@ export const setShowDisplay = (show, component) => {
 }
 
 export const setPanelComponent = (component) => {
-    console.log(component)
     return dispatch => {
         dispatch(setComponent(component))
     }

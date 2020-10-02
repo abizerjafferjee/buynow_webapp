@@ -1,7 +1,6 @@
+import { axiosInstance } from '../constants/Axios'
 import { FETCH_SHOWS_REQUEST, FETCH_SHOWS_SUCCESS, FETCH_SHOWS_FAILURE, FILTER_SHOWS } from '../constants/ActionTypes'
 
-// const serverUrl = 'http://localhost:8000'
-import { serverUrl } from '../constants/Common'
 
 export const fetchShowsRequest = () => {
     return {
@@ -26,12 +25,9 @@ export const fetchShowsFailure = (error) => {
 export const fetchShows = () => {
     return dispatch => {
         dispatch(fetchShowsRequest())
-        fetch(`${serverUrl}/api/read-shows/`)
+        axiosInstance.get(`/api/read-shows/`, {withCredentials:true})
             .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                dispatch(fetchShowsSuccess(data))
+                dispatch(fetchShowsSuccess(response.data))
             })
             .catch((error) => {
                 dispatch(fetchShowsFailure(error))

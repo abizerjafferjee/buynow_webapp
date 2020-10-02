@@ -48,9 +48,6 @@ function TicketList(props) {
                     <List.Item key={index}>
                         <List.Content>
                             <List.Header as={Link} to={`/live/${ticket.uuid}`}>{ticket.uuid}</List.Header>
-                            <List.Description>
-                                <div className="h6 site-font">{ticket.active ? <span className="text-success">Active</span> : <span className="text-secondary">Inactive</span>}</div>
-                            </List.Description>
                         </List.Content>
                     </List.Item>
                 )
