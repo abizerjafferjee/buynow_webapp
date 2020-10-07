@@ -11,8 +11,6 @@ function ShowList(props) {
 
     const [width, height] = useWindowSize();
     const itemsPerRow = width > 0 ? Math.round(width / 320) : 3
-    console.log(itemsPerRow)
-    console.log(props.shows)
 
     let showList = _.map(props.shows, (show, index) => {
         return (
