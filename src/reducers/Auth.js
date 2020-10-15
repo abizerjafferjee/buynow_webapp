@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants/ActionTypes'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET } from '../constants/ActionTypes'
 
 const initialState = {
     isAuthenticated: false,
@@ -24,6 +24,8 @@ const auth = (state=initialState, action={}) => {
                 ...initialState,
                 error: action.payload
             }
+        case LOGIN_RESET:
+            return initialState
         default:
             return state
     }

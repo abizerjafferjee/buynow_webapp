@@ -47,14 +47,14 @@ function Cart(props) {
                         </div>
                     </Item.Meta>
                     <Item.Description>
-                        <div className="h6 site-font">
+                        <div className="h5 site-font">
                             { element.quantity } tickets X USD { element.show.show_price }
                         </div>
                     </Item.Description>
-                    <Item.Extra>
-                        <Button circular icon='trash' onClick={(e) => props.removeFromCart(element.id)} />
-                        <Button circular icon='plus' onClick={(e) => props.addToCart(element.show, 1)} />
-                        <Button circular icon='minus' onClick={(e) => props.addToCart(element.show, -1)} />
+                    <Item.Extra style={{cursor:"pointer"}}>
+                        <Icon name="trash" className="site-font h4" onClick={(e) => props.removeFromCart(element.id)} />
+                        <Icon name="plus" className="site-font h4" onClick={(e) => props.addToCart(element.show, 1)} />
+                        <Icon name="minus" className="site-font h4" onClick={(e) => props.addToCart(element.show, -1)}/>
                         <Popup
                             content="Each ticket has its own ticket link that you can share with your friends so they can watch the show on their own device."
                             key="1"
@@ -68,12 +68,14 @@ function Cart(props) {
     })
         
     const cartEmptyMessage =
-        <div className="text-white d-block site-font">
-            <p className="h5">
-                You haven't selected any events.
-            </p>
-            <p className="h6">
-                There are no tickets in your cart, go pick some live shows.
+        <div className="d-block site-font h5">
+            <p>
+               You haven't selected a concert.&nbsp;
+               <span
+                onClick={() => props.setPaneOpen()}
+                style={{cursor:"pointer", textDecoration:"underline"}}>
+                View upcoming concerts.
+                </span>
             </p>
         </div>
 

@@ -89,8 +89,20 @@ function TicketList(props) {
     const itemList = <Item.Group divided>{items}</Item.Group>
 
     return (
-        <div className="site-font">
-            {shows.length > 0 ? itemList : <p>You don't have any tickets.</p>}
+        <div className="site-font h5">
+            {
+                shows.length > 0 ? 
+                itemList : 
+                <p>
+                    You don't have any tickets.&nbsp;
+                    <span 
+                        style={{cursor:"pointer", textDecoration:"underline"}} 
+                        onClick={() => props.setPaneOpen()}
+                    >
+                        View upcoming concerts.
+                    </span>
+                </p>
+            }
         </div>
     )
 }

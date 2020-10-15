@@ -48,10 +48,10 @@ function CartPage(props) {
     }
 
     const notAuthenticatedMessage = 
-        <div className="p-2">
+        <div className="mt-5 pt-5">
             <div 
-                className="h4 site-font" 
-                style={{pointer:'cursor'}} 
+                className="h4 site-font center-child " 
+                style={{cursor:'pointer'}} 
                 onClick={() => props.setPanelComponent('account')}>
                 Login to view cart
             </div>
@@ -74,6 +74,7 @@ function CartPage(props) {
                     addToCart={props.addToCart}
                     removeFromCart={props.removeFromCart}
                     submit={submit}
+                    setPaneOpen={props.setPaneOpen}
                 />
             </div>
         }

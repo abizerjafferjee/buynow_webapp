@@ -1,4 +1,4 @@
-import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../constants/ActionTypes'
+import { SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_SIGNUP } from '../constants/ActionTypes'
 
 const initialState = {}
 
@@ -19,6 +19,8 @@ const signup = (state=initialState, action={}) => {
                 ...initialState,
                 error: action.payload
             }
+        case CLEAR_SIGNUP:
+            return initialState
         default:
             return state
     }

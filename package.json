@@ -37,7 +37,8 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^1.1.1",
     "shortid": "^2.2.15",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "webpack": "^4.42.0"
   },
   "scripts": {
     "start": "set PORT=3006 && react-scripts start",
@@ -60,5 +61,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:8000"
+  "proxy": "http://localhost:8000",
+  "devDependencies": {
+    "webpack-cli": "^4.0.0"
+  }
 }

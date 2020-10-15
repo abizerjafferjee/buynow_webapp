@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 import Account from '../components/Account'
 import Profile from '../components/Profile'
-import { login, logout, userSignupRequest } from '../actions/Auth'
+import { login, logout, userSignupRequest, clearSignup, loginReset } from '../actions/Auth'
 import { fetchOrders } from '../actions/Account'
 import { fetchTickets } from '../actions/Tickets'
 
@@ -30,6 +30,7 @@ function AccountPage(props) {
                 history={props.history}
                 orders={props.orders}
                 tickets={props.tickets}
+                setPaneOpen={props.setPaneOpen}
             />
             : <Account
                 login={props.login}
@@ -37,6 +38,9 @@ function AccountPage(props) {
                 userSignupRequest={props.userSignupRequest}
                 auth={props.auth}
                 signup={props.signup}
+                clearSignup={props.clearSignup}
+                setPaneOpen={props.setPaneOpen}
+                loginReset={props.loginReset}
             />
         }
         </div>
@@ -61,7 +65,8 @@ AccountPage.propTypes = {
     orders: PropTypes.array,
     fetchOrders: PropTypes.func.isRequired,
     tickets: PropTypes.array,
-    fetchTickets: PropTypes.func.isRequired
+    fetchTickets: PropTypes.func.isRequired,
+    clearSignup: PropTypes.func.isRequired
 }
 
-export default connect(mapStateToProps, { login, logout, userSignupRequest, fetchOrders, fetchTickets})(AccountPage)
+export default connect(mapStateToProps, { login, logout, userSignupRequest, clearSignup, fetchOrders, fetchTickets, loginReset})(AccountPage)

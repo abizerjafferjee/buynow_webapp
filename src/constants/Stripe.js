@@ -1,2 +1,9 @@
-export const STRIPE_PUBLISHABLE = 'pk_test_51HI1opH9PLlFARsrME2IYTZG7xTcYBrTRJri7xqbVsmiaNU3UdQcpyCPapkW7Tqz2kxFUtO2XgDxpMAGXBbcjDn600OstLfq3B'
-// export const STRIPE_PUBLISHABLE = 'pk_live_51HI1opH9PLlFARsrLEfJRhS33qoggAHJpv97vNK2udwZono7yb7Y0penr0JDNTR33I7yew4orrvowe7dTwnCOf3F00roEUv1oQ'
+function getStripeKey() {
+    var key = process.env.REACT_APP_STRIPE_PUBLISHABLE_TEST
+    if (process.env.REACT_APP_ENVIRONMENT === 'PROD') {
+        key = process.env.REACT_APP_STRIPE_PUBLISHABLE_LIVE
+    }
+    return key
+}
+
+export const STRIPE_PUBLISHABLE = getStripeKey()
