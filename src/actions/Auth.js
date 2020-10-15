@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode'
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE } from '../constants/ActionTypes'
+import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_SIGNUP } from '../constants/ActionTypes'
 import { axiosInstance } from '../constants/Axios'
 
 export const loginRequest = (username) => {
@@ -21,6 +21,14 @@ export const loginFailure = (error) => {
     return {
         type: LOGIN_FAILURE,
         payload: error
+    }
+}
+
+export const loginReset = () => {
+    return dispatch => {
+        dispatch({
+            type: LOGIN_RESET
+        })
     }
 }
 
@@ -99,6 +107,14 @@ export const signupFailure = (error) => {
     return {
         type: SIGNUP_FAILURE,
         payload: error
+    }
+}
+
+export const clearSignup = () => {
+    return dispatch => {
+        dispatch({
+            type: CLEAR_SIGNUP
+        })
     }
 }
 

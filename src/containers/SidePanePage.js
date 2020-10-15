@@ -16,11 +16,18 @@ function PaneChild({paneComponent,...props}) {
 
   switch (paneComponent) {
     case 'account':
-      return <AccountPage />
+      return <AccountPage
+                setPaneOpen={props.setPaneOpen}
+              />
     case 'cart':
-      return <CartPage />
+      return <CartPage
+                setPaneOpen={props.setPaneOpen}
+              />
     case 'show':
-      return <ShowPane show={props.show} />
+      return <ShowPane 
+                show={props.show}
+                setPaneOpen={props.setPaneOpen}
+              />
     default:
       return <div className="h3 text-white">Nothing Selected</div>
   }
@@ -51,6 +58,7 @@ function SidePane(props) {
         width={paneWidth}
         hideHeader={hidePaneCloseButton}>
         <PaneChild  
+          setPaneOpen={setPaneOpen}
           paneComponent={props.panel.component}
           show={props.panel.show}
         />

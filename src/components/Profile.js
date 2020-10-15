@@ -19,13 +19,17 @@ function Profile(props) {
 
             <Divider />
 
-            <TicketList tickets={props.tickets} />
+            <TicketList 
+                tickets={props.tickets}
+                setPaneOpen={props.setPaneOpen}
+            />
 
             <Divider />
-            <div className="d-block text-white h6 site-font">
+            <div className="d-block text-white h5 site-font">
                 Logged in as <b>{props.auth.user.username}</b>
                 <div className="float-right"
-                    onClick={handleUserLogout}>
+                    onClick={handleUserLogout}
+                    style={{cursor:"pointer"}}>
                     Logout
                 </div>
             </div>

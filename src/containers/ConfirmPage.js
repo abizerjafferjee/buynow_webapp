@@ -13,6 +13,17 @@ function Confirm(props) {
     const [errorMessage, setErrorMessage] = useState('')
     const {status, uuid} = useParams()
 
+    useEffect(() => {
+        if (status !== undefined && uuid !== undefined) {
+            if (status === 'confirm') {
+                updatePayment(2, uuid)
+            } else if (status === 'cancel') {
+                updatePayment(3, uuid)
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     function updatePayment(payment_status, uuid) {
         updatePaymentStatus(payment_status, uuid)
         .then((res) => {
@@ -30,50 +41,29 @@ function Confirm(props) {
             }
             setTimeout(() => {
                 props.history.push('/')
-            }, 3000)
+            }, 5000)
         })
-    }
-
-    useEffect(() => {
-        if (status !== undefined && uuid !== undefined) {
-            if (status === 'confirm') {
-                updatePayment(2, uuid)
-            } else if (status === 'cancel') {
-                updatePayment(3, uuid)
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    const messageDiv = () => {
-        if (errorMessage === '') {
-            return (
-                <div>
-                    <div className="h1 site-font">Thank You!</div>
-                    <div className="h2 site-font">
-                        For supporting artists and performers through Odiance.
-                        <br></br>
-                        Enjoy the show.
-                    </div>
-                    <br></br>
-                    <div className="h5 site-font">
-                        You will receive an email shortly that is both your receipt and will
-                        include your unique links for each ticket you have purchased for this
-                        performance.
-                    </div>
-                    <div className="h2 site-font">We are redirecting you to the home page...</div>
-                </div>
-                )
-        } else {
-            return <div className="h4 site-font text-warning">{errorMessage}</div>
-        }
     }
 
     const confirmDiv = () => {
         if (loading) {
-            return <div className="h2 site-font">Processing your tickets now</div>
+            return <p className="h2 site-font">Processing your tickets now...</p>
         } else {
-            return messageDiv()
+            if (errorMessage === '') {
+                return (
+                    <div>
+                        <p className="h2 site-font">
+                            Thank you for supporting performers through Odiance.
+                        </p>
+                        <p className="h3 site-font">
+                            You will receive an email with your concert tickets shortly.
+                        </p>
+                        {/* <p className="h4 site-font">We are redirecting you to the home page...</p> */}
+                    </div>
+                    )
+            } else {
+                return <p className="h4 site-font text-warning">{errorMessage}</p>
+            }
         }
     }
     
@@ -87,12 +77,11 @@ function Confirm(props) {
             </Grid.Row>
             <Grid.Row>
             {
-                status === 'confirm' ?
-                confirmDiv() :
+                status !== 'confirm' ?
                 <div>
-                    <div className="h2 site-font">We're cancelling your order.</div>
-                    <div className="h5 site-font">We are redirecting you to the home page...</div>
-                </div>
+                    <p className="h2 site-font">We're cancelling your order.</p>
+                </div> :
+                confirmDiv()
             }
             </Grid.Row>
             </Grid>

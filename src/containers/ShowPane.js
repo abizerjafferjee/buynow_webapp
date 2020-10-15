@@ -11,16 +11,25 @@ import { serverUrl } from '../constants/Axios'
 
 function ShowPane(props) {
     const [disabled , setDisabled] = useState(false)
+    const [addedToCartMsg, setAddedToCartMsg] = useState(false)
 
     function handleAddToCart() {
         props.addToCart(props.show, 1)
-        setDisabled(true)
+        disableButton(true)
         ReactGA.event({
             'category':'Show',
             'action':'Add to Cart',
             'label':'Button',
             'value':props.show.title
         })
+    }
+
+    function disableButton() {
+        setDisabled(true)
+        setAddedToCartMsg(true)
+        setTimeout(() => {
+            setAddedToCartMsg(false)
+        }, 1000)
     }
 
     function artistLinks(artist) {
@@ -111,7 +120,11 @@ function ShowPane(props) {
                                     disabled={disabled}
                                     onClick={handleAddToCart}
                                     className="custom-btn site-font">
-                                    USD { props.show.show_price }
+                                    {
+                                        addedToCartMsg ? 
+                                        <>Added to Cart</>:
+                                        <>USD { props.show.show_price }</>
+                                    }
                                 </Button>
                             </div>
                         </Item.Meta>
