@@ -40,6 +40,10 @@ const faqs = [
         "content": "When you buy a ticket, the money is held and is transferred to the artist once a show has been successfully completed. In case the show is cancelled the money is returned to you safe and sound in all its glory."
     },
     {
+        "title": "Can I watch the show on my TV?",
+        "content": "Definitely. All you need to do is use the cast feature to cast the show to your TV."
+    },
+    {
         "title": "How can I buy Merchandize?",
         "content": "Currently the only way to buy any and all Merch is from the performer’s web address. But rest assured we are working on something amazing in those areas. Keep an eye out for more."
     },
@@ -54,7 +58,15 @@ const faqs = [
     {
         "title": "Do you guys have an app?",
         "content": "Wouldn’t we love to. Unfortunately, not yet. But soon. So very very soon!"
-    }
+    },
+    {
+        "title": "Is Odiance part of any Society?",
+        "content": "Yes. We are members of SOCAN. All required proceedings from a concert goes to SOCAN for royalty payouts from our accounts."
+    },
+    {
+        "title": "Is there a way we can share our feedback?",
+        "content": "Of course. Please send any and all feedback to info@odiance.com"
+    },
 ]
 
 function Faq(props) {
