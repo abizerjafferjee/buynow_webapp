@@ -14,36 +14,36 @@ function Confirm(props) {
     const {status, uuid} = useParams()
 
     useEffect(() => {
-        if (status !== undefined && uuid !== undefined) {
-            if (status === 'confirm') {
-                updatePayment(2, uuid)
-            } else if (status === 'cancel') {
-                updatePayment(3, uuid)
+        if (!loading || props.stripe.loading === undefined) {
+            if (status !== undefined && uuid !== undefined) {
+                if (status === 'confirm') {
+                    props.updatePaymentStatus(2, uuid)
+                } else if (status === 'cancel') {
+                    props.updatePaymentStatus(3, uuid)
+                }
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [status, uuid]);
 
-    function updatePayment(payment_status, uuid) {
-        updatePaymentStatus(payment_status, uuid)
-        .then((res) => {
-            setLoading(false)
-            setTimeout(() => {
-                props.history.push('/')
-            }, 5000)
-        })
-        .catch((err) => {
-            setLoading(false)
-            if (err.response.status === 403) {
-                setErrorMessage('This order has already been completed. If your payment was confirmed then you should have received tickets on your email. Please contact support if you still need help.')
+    useEffect(() => {
+        if (props.stripe.loading !== undefined) {
+            setLoading(true)
+        }
+        if ('success' in props.stripe) {
+            if (props.stripe.success) {
+                setLoading(false)
+                setTimeout(() => {
+                    props.history.push('/')
+                }, 5000)
             } else {
-                setErrorMessage('Something went wrong on our side. Please contact support to get it resolved. Sorry for the inconvenience.')
+                setErrorMessage(props.stripe.error)
+                setTimeout(() => {
+                    props.history.push('/')
+                }, 5000)
             }
-            setTimeout(() => {
-                props.history.push('/')
-            }, 5000)
-        })
-    }
+        }
+    }, [props.stripe]);
 
     const confirmDiv = () => {
         if (loading) {
@@ -89,4 +89,10 @@ function Confirm(props) {
     )
 }
 
-export default Confirm
+const mapStateToProps = (state) => {
+    return {
+        stripe: state.stripe
+    }
+}
+
+export default connect(mapStateToProps, { updatePaymentStatus })(Confirm)

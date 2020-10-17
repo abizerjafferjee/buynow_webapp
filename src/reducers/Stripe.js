@@ -6,6 +6,19 @@ const stripe = (state={}, action={}) => {
             return {
                 checkoutId: action.payload.checkoutId
             }
+        case 'SET_STRIPE_CONFIRM_LOADING':
+            return {
+                loading: true
+            }
+        case 'SET_STRIPE_CONFIRM':
+            return {
+                success: true
+            }
+        case 'SET_STRIPE_ERROR':
+            return {
+                success: false,
+                error: action.payload
+            }
         default:
             return state
     }
