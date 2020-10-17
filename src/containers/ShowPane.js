@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import { Button, Divider, Container, Item, List, Image } from 'semantic-ui-react'
+import { Button, Divider, Container, Item, List, Image, Icon } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import Moment from 'react-moment'
 import ReactGA from 'react-ga'
