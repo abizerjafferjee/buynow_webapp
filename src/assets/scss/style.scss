@@ -32,6 +32,8 @@
   .ui.cards a.card:hover {
     background: #303030;
     box-shadow: 0 6px 12px rgba(0,0,0,0.16), 0 6px 12px rgba(0,0,0,0.23);
+    position: relative;
+    z-index: 0;
   }
 
   .card_image {

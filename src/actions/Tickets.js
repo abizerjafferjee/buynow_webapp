@@ -1,4 +1,4 @@
-import { axiosInstance } from '../constants/Axios'
+import { axiosInstance, sendLogs } from '../constants/Axios'
 import { FETCH_TICKETS_REQUEST, FETCH_TICKETS_SUCCESS, FETCH_TICKETS_FAILURE } from '../constants/ActionTypes'
 
 export const fetchTicketsRequest = () => {
@@ -30,6 +30,7 @@ export const fetchTickets = () => {
             })
             .catch((err) => {
                 dispatch(fetchTicketsFailure(err))
+                sendLogs('Fetch tickets failed', '/api/tickets/')
             })
     }
 }

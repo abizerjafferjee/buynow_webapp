@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { ADD_TO_CART, REMOVE_FROM_CART, CLEAR_CART } from '../constants/ActionTypes'
-import { axiosInstance } from '../constants/Axios'
+import { axiosInstance, sendLogs } from '../constants/Axios'
 import { setStripeCheckout } from './Stripe'
 
 export const addToCart = (show, quantity) => {
@@ -47,6 +47,9 @@ export const placeOrder = (items) => {
                 const orderId = res.data.id
                 const checkoutId = res.data.stripe_session.id
                 dispatch(setStripeCheckout(checkoutId))
+            })
+            .catch((err) => {
+                sendLogs('Placing order failed', '/api/orders/')
             })
         
             // dispatch(clearCart())

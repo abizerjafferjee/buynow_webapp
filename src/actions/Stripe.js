@@ -1,5 +1,5 @@
 import { SET_STRIPE_CHECKOUT } from '../constants/ActionTypes'
-import { axiosInstance } from '../constants/Axios'
+import { axiosInstance, sendLogs } from '../constants/Axios'
 
 
 export const setStripeCheckout = (checkoutId) => {
@@ -42,6 +42,7 @@ export function updatePaymentStatus(payment_status, uuid) {
                 dispatch(setStripeError('This order has already been completed. If your payment was confirmed then you should have received tickets on your email. Please contact support if you still need help.'))
             } else {
                 dispatch(setStripeError('Something went wrong on our side. Please contact support to get it resolved. Sorry for the inconvenience.'))
+                sendLogs('Updating order payment status failed', '/api/orders/uuid/payment_status/')
             }
         })
     }

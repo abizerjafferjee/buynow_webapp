@@ -16,3 +16,11 @@ export const axiosInstance = axios.create({
     withCredentials: true,
     baseURL: serverUrl
 })
+
+export async function sendLogs(message, endpoint) {
+    axiosInstance.post(`api/logs/cloudwatch/`, {
+        'app': 'viewer',
+        'message': message,
+        'endpoint': endpoint
+    })
+}

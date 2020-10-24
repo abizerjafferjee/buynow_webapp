@@ -1,4 +1,4 @@
-import { axiosInstance } from '../constants/Axios'
+import { axiosInstance, sendLogs } from '../constants/Axios'
 import { FETCH_SHOWS_REQUEST, FETCH_SHOWS_SUCCESS, FETCH_SHOWS_FAILURE, FILTER_SHOWS } from '../constants/ActionTypes'
 
 
@@ -25,12 +25,13 @@ export const fetchShowsFailure = (error) => {
 export const fetchShows = () => {
     return dispatch => {
         dispatch(fetchShowsRequest())
-        axiosInstance.get(`/api/read-shows/`, {withCredentials:true})
+        axiosInstance.get(`/api/read-shows/`)
             .then((response) => {
                 dispatch(fetchShowsSuccess(response.data))
             })
             .catch((error) => {
                 dispatch(fetchShowsFailure(error))
+                sendLogs('fetch shows failed', '/api/read-shows/')
             })
     }
 }
