@@ -1,4 +1,4 @@
-import { axiosInstance } from '../constants/Axios'
+import { axiosInstance, sendLogs } from '../constants/Axios'
 import { LIVESHOW_REQUEST, LIVESHOW_SUCCESS, LIVESHOW_FAILURE, LIVESHOW_CLEAR } from '../constants/ActionTypes'
 
 export const liveshowRequest = (ticketId) => {
@@ -37,6 +37,7 @@ export const fetchLiveShow = (ticketId) => {
             })
             .catch((err) => {
                 dispatch(liveshowFailure(err))
+                sendLogs('Fetch live show failed', '/api/tickets/id/ticket')
             })
     }
 }
@@ -48,6 +49,7 @@ export const updateLiveShow = (ticketId) => {
             dispatch(liveshowClear())
         })
         .catch((err) => {
+            sendLogs('Update live show failed', '/api/tickets/id/ticket/')
         })
     }
 }

@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode'
 
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGIN_RESET, SIGNUP_REQUEST, SIGNUP_SUCCESS, SIGNUP_FAILURE, CLEAR_SIGNUP } from '../constants/ActionTypes'
-import { axiosInstance } from '../constants/Axios'
+import { axiosInstance, sendLogs } from '../constants/Axios'
 
 export const loginRequest = (username) => {
     return {
@@ -60,6 +60,9 @@ export const login = (username, password) => {
             })
             .catch((error) => {
                 dispatch(loginFailure(error.response))
+                if (error.response.status !== 400) {
+                    sendLogs('Login failed', '/accounts/accounts-token-auth/')
+                }
                 // if (error.response.status === 400 && error.response.data.non_field_errors[0] === 'Unable to log in with provided credentials.') {
                 //     console.log("Log in failed, please check your credentials again.")
                 // }
@@ -87,6 +90,7 @@ export const checkAuthorizationToken = (token) => {
                         dispatch(logout())
                     }
                 }
+                sendLogs('Token authorization failed', '/accounts/accounts-token-verify/')
             })
     }
 }
@@ -130,6 +134,9 @@ export const userSignupRequest = (userInfo) => {
             // if (error.response.status === 400 && error.response.data.username[0] === 'A user with that username already exists.') {
             //     console.log('A user with that username already exists.')
             // }
+            if (error.response.status !== 400) {
+                sendLogs('User signup failed', '/accounts/users/')
+            }
         })
     }
 }
