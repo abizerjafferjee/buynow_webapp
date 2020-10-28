@@ -2,16 +2,12 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Router } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
-
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import jwtDecode from 'jwt-decode'
 
 import App from './App'
 import rootReducer from './reducers/index'
-import { loginSuccess, setAuthorizationToken } from './actions/Auth'
-
 import * as serviceWorker from './serviceWorker'
 import './assets/scss/style.scss'
 
@@ -23,11 +19,6 @@ const store = createStore(
       applyMiddleware(thunk)
   )
 )
-
-if (localStorage.jwtToken) {
-  setAuthorizationToken(localStorage.jwtToken)
-  store.dispatch(loginSuccess(jwtDecode(localStorage.jwtToken)))
-}
 
 const history = createBrowserHistory();
 
