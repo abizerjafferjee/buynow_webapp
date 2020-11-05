@@ -6,18 +6,14 @@
         ".write": "auth.uid === $uid"  
       }
     },
-    "meta": {
-      "$uid": {
-        ".read": "auth.uid === $uid",
-        ".write": "auth.uid === $uid"
-      }
+    "stream_meta": {
+      ".read": true,
+      ".write": "auth.uid !== null"
     },
     "streams": {
-      ".read": true,
-      "$stream": {
-        "$uid": {
-          ".write": "auth.uid === $uid"
-        }
+      "$uid": {
+        ".read": true,
+        ".write": "auth.uid === $uid"
       }
     }
   }

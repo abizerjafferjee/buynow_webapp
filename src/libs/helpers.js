@@ -13,14 +13,31 @@ export function useWindowSize() {
     return size;
 }
 
-export function validURL(str) {
+export function validURL(str, stream=false) {
+
+  if (stream) {
+    if (!str.includes('youtube.com')) {
+      return false
+    }
+  }
+
   var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
     '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
     '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
     '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\?[;&a-zA-Z\\d%_.~+=-]*)?'+ // query string
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-  return !!pattern.test(str);
+  if (!!pattern.test(str)) {
+    return true
+  }
+
+  if (str.startsWith('http') || str.startsWith('https')) {
+    var domain = str.split('/')[2]
+    return !!pattern.test(domain)
+  }
+
+  return false
+
 }
 
 export function shortenText(text, charLength) {

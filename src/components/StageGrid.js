@@ -42,7 +42,7 @@ function StageGrid({ showStage, links, makeLinkLive, unstageLink, streamUrl, end
                         variant="text"
                         color="secondary"
                         size="small"
-                        onClick={endLive}>
+                        onClick={()=>endLive()}>
                         <u>End Live</u>
                     </Button>
                 </div>

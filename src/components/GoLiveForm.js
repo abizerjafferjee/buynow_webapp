@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Button, FormControl, FormGroup, FormLabel, FormHelperText, TextField } from '@material-ui/core'
+import { validURL } from '../libs/helpers'
 
 const useStyles = makeStyles((theme) => ({
 	formInput: {
@@ -35,8 +36,18 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function GoLiveForm({ goLive, setStreamUrl, showStage, ...rest }) {
+function GoLiveForm({ goLive, streamUrl, setStreamUrl, showStage, ...rest }) {
     const classes = useStyles()
+    const [error, showError] = useState(false)
+
+    function handleSubmit() {
+        if (validURL(streamUrl, true)) {
+            showError(false)
+            goLive()
+        } else {
+            showError(true)
+        }
+    }
 
     return (
         <React.Fragment>
@@ -61,13 +72,15 @@ function GoLiveForm({ goLive, setStreamUrl, showStage, ...rest }) {
                         />
                         <Button 
                             variant="contained"
-                            onClick={goLive}
+                            onClick={()=>handleSubmit()}
                             color="primary"
                             className={classes.formButton}>
                             Go Live
                         </Button>
                     </FormGroup>
-                    <FormHelperText className={classes.helperText}>{'Not a valid stream URL.'}</FormHelperText>
+                    <FormHelperText error={error} className={classes.helperText}>
+                        {error ? 'Not a valid stream URL. Must be a Youtube livestream URL.' : ''}
+                    </FormHelperText>
                 </FormControl>
             </div>        
         )}

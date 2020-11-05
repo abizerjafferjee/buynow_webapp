@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   	root: {
 		display: 'flex',
 		width: '300px',
-		height: '120px',
+		height: '125px',
 		borderRadius: '5%'
   	},
   	expand: {
@@ -40,15 +40,15 @@ const useStyles = makeStyles((theme) => ({
 	},
 	details: {
 		display: 'flex',
-		width: '180px',
+		width: '175px',
 		flexDirection: 'column',
 	},
 	content: {
 		flex: '1 0 auto',
 	},
 	cover: {
-			width: '120px',
-			height: '120px'
+			width: '125px',
+			height: '125px'
 	},
 	controls: {
 		display: 'flex',
@@ -67,8 +67,8 @@ export default function StageCard({ link, linkId, unstageLink, makeLinkLive, ...
       		<div className={classes.details}>
 				<CardContent className={classes.content}>
 					{!_.isUndefined(link) && (
-						<Typography component="h5" variant="h5">
-							{link.name}
+						<Typography variant="inherit">
+							{shortenText(link.name, 40)}
 						</Typography>
 					)}
 					{!_.isUndefined(link.url) && (
@@ -80,15 +80,16 @@ export default function StageCard({ link, linkId, unstageLink, makeLinkLive, ...
 
 				<div className={classes.controls}>
 					<Button 
-						size="small"
-						color="primary"
+						size='small'
+						color='primary'
 						onClick={() => unstageLink(linkId)}>
 						Remove
 					</Button>
 					<Button
-						size="small" 
+						size='small' 
 						color='primary'
-						disable={link.active}
+						variant='contained'
+						disabled={link.active}
 						onClick={() => makeLinkLive(linkId)}>
 						Show
 					</Button>

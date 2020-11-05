@@ -81,13 +81,17 @@ function LiveStage(props) {
 
 	function prepareStage(data) {
 		if (data === null) {
-			setStreamUrl("")
+			setStreamUrl('')
+			setActiveLink('')
 			setShowStage(false)
+			setStagedLinks({})
 		} else if (!_.isUndefined(data.stream)) {
 			setStreamUrl(data.stream)
 			setShowStage(true)
-			if (!_.isUndefined(data.stage)){
+			if (!_.isUndefined(data.stage)) {
 				getStagedLinks(data.stage)
+			} else {
+				setStagedLinks({})
 			}
 		}
 	}
@@ -109,14 +113,11 @@ function LiveStage(props) {
 		})
 	}
 
-	function goLive(e) {
-		e.preventDefault()
-		if (validURL(streamUrl)) {
-			createStreamMeta()
-			.then(createStream())
-			.then(setShowStage(true))
-			.catch((error)=>handleError(error))
-		}
+	function goLive() {
+		createStreamMeta()
+		.then(createStream())
+		.then(setShowStage(true))
+		.catch((error)=>handleError(error))
 	}
 
 	function createStreamMeta() {
@@ -133,8 +134,7 @@ function LiveStage(props) {
 		})
 	}
 
-	function endLive(e) {
-		e.preventDefault()
+	function endLive() {
 		modifyStreamRef.remove()
 	}
 
@@ -174,6 +174,7 @@ function LiveStage(props) {
 
 			<GoLiveForm
 				goLive={goLive}
+				streamUrl={streamUrl}
 				setStreamUrl={setStreamUrl}
 				showStage={showStage}
 			/>

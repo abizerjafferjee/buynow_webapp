@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	image: {
 		width: '100%',
-		maxHeight: '240px'
+		height: '240px'
 	},
 	action: {
 		position: 'absolute',
@@ -106,7 +106,7 @@ export default function LinkCard({ link, linkId, editLink, stageLink, showStageB
 				{link !== undefined && (
 					<div className={classes.cardSection}>
 						<Typography variant='inherit' className={classes.title}>
-							{shortenText(link.name, 24)}
+							{shortenText(link.name, 22)}
 						</Typography>
 						{link.price !== undefined && (<Typography variant='inherit' className={classes.price}>
 							{link.price}
@@ -115,7 +115,7 @@ export default function LinkCard({ link, linkId, editLink, stageLink, showStageB
 				)}
 				{link.description !== undefined && (
 					<Typography variant="body1" color="textSecondary" component="p">
-						{shortenText(link.description, 62)}
+						{shortenText(link.description, 56)}
 					</Typography>
 				)}
 				{link.url !== undefined && (
