@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "links": {
+      "$uid": {
+        ".read": true,
+        ".write": "auth.uid === $uid"  
+      }
+    },
+    "meta": {
+      "$uid": {
+        ".read": "auth.uid === $uid",
+        ".write": "auth.uid === $uid"
+      }
+    },
+    "streams": {
+      ".read": true,
+      "$stream": {
+        "$uid": {
+          ".write": "auth.uid === $uid"
+        }
+      }
+    }
+  }
+}
