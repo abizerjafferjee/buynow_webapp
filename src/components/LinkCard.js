@@ -106,7 +106,7 @@ export default function LinkCard({ link, linkId, editLink, stageLink, showStageB
 				{link !== undefined && (
 					<div className={classes.cardSection}>
 						<Typography variant='inherit' className={classes.title}>
-							{shortenText(link.name, 22)}
+							{shortenText(link.name, 15)}
 						</Typography>
 						{link.price !== undefined && (<Typography variant='inherit' className={classes.price}>
 							{link.price}

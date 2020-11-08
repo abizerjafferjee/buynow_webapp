@@ -68,7 +68,7 @@ export default function StageCard({ link, linkId, unstageLink, makeLinkLive, ...
 				<CardContent className={classes.content}>
 					{!_.isUndefined(link) && (
 						<Typography variant="inherit">
-							{shortenText(link.name, 40)}
+							{shortenText(link.name, 30)}
 						</Typography>
 					)}
 					{!_.isUndefined(link.url) && (
