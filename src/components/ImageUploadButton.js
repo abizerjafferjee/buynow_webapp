@@ -1,6 +1,5 @@
 import React, { useRef } from 'react';
 import { Button } from '@material-ui/core';
-import PublishRoundedIcon from '@material-ui/icons/PublishRounded';
 
 const ImageUploadButton = props => {
 

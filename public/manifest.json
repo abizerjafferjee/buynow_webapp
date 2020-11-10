@@ -1,9 +1,9 @@
 {
-  "short_name": "Odiance",
-  "name": "Odiance - Music Live Streaming Platform",
+  "short_name": "Genie24",
+  "name": "Genie24 - Streamer App",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "genie24-128by128-icon-nobg.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },

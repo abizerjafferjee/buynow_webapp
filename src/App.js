@@ -1,29 +1,25 @@
 import React, { useEffect, useState, useMemo } from 'react'
-import clsx from 'clsx';
+// import clsx from 'clsx';
 
 import { AppContext } from './libs/contextLib'
 import Routes from './Routes'
 import { Link as RLink } from 'react-router-dom'
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
+// import AppBar from '@material-ui/core/AppBar';
+// import CssBaseline from '@material-ui/core/CssBaseline';
+// import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddToPhotosTwoToneIcon from '@material-ui/icons/AddToPhotosTwoTone';
-import DynamicFeedTwoToneIcon from '@material-ui/icons/DynamicFeedTwoTone';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import SearchIcon from '@material-ui/icons/Search';
-import InputBase from '@material-ui/core/InputBase';
-import Link from '@material-ui/core/Link';
+// import Toolbar from '@material-ui/core/Toolbar';
+// import Typography from '@material-ui/core/Typography';
+// import SearchIcon from '@material-ui/icons/Search';
+// import InputBase from '@material-ui/core/InputBase';
+// import Link from '@material-ui/core/Link';
 import { makeStyles, useTheme, fade } from '@material-ui/core/styles';
 
 const drawerWidth = 180;
@@ -58,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
     backgroundColor: '#6699cc',
-    color: 'white'
+    color: 'white' 
   },
   content: {
     flexGrow: 1,
@@ -105,7 +101,12 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     '&:hover': {
       color: 'white'
-    }
+    },
+  },
+  logo: {
+    width: '107px',
+    height: '60px',
+    margin: 'auto',
   }
 }));
 
@@ -148,8 +149,14 @@ function App(props) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
+      {/* <div className={classes.toolbar} /> */}
       <List>
+        <ListItem>
+          <img 
+            className={classes.logo}
+            src={require('./assets/images/genie24-app-logo-nobg.png')}
+          />
+        </ListItem>
         <ListItem button>
               <ListItemIcon><AddToPhotosTwoToneIcon /></ListItemIcon>
             <RLink to='/' className={classes.linkStyle}>
