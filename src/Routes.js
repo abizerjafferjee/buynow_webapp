@@ -1,11 +1,12 @@
 import React from 'react'
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 // import Dashboard from './containers/Dashboard';
 import LiveStage from './containers/LiveStage';
 import SignIn from './containers/SignIn';
+import Privacy from './components/Privacy'
 
 function Routes (props) {
     return (
@@ -16,6 +17,9 @@ function Routes (props) {
             <UnauthenticatedRoute exact path="/signin"> 
                 <SignIn />
             </UnauthenticatedRoute>
+            <Route exact path="/privacy"> 
+                <Privacy />
+            </Route>
         </Switch>
     )
 }
