@@ -7,6 +7,7 @@ import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
 import LiveStage from './containers/LiveStage';
 import SignIn from './containers/SignIn';
 import Privacy from './components/Privacy'
+import Guide from './components/Guide'
 
 function Routes (props) {
     return (
@@ -19,6 +20,9 @@ function Routes (props) {
             </UnauthenticatedRoute>
             <Route exact path="/privacy"> 
                 <Privacy />
+            </Route>
+            <Route exact path="/extension-guide">
+                <Guide />
             </Route>
         </Switch>
     )

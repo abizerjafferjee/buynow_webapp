@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react'
-// import clsx from 'clsx';
+import clsx from 'clsx';
 
 import { AppContext } from './libs/contextLib'
 import Routes from './Routes'
@@ -7,20 +7,17 @@ import { Link as RLink } from 'react-router-dom'
 // import AppBar from '@material-ui/core/AppBar';
 // import CssBaseline from '@material-ui/core/CssBaseline';
 // import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import AddToPhotosTwoToneIcon from '@material-ui/icons/AddToPhotosTwoTone';
 import LockTwoToneIcon from '@material-ui/icons/LockTwoTone';
-// import Toolbar from '@material-ui/core/Toolbar';
+import { Modal, Toolbar, Drawer, Hidden, List, ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core';
 // import Typography from '@material-ui/core/Typography';
 // import SearchIcon from '@material-ui/icons/Search';
 // import InputBase from '@material-ui/core/InputBase';
 // import Link from '@material-ui/core/Link';
 import { makeStyles, useTheme, fade } from '@material-ui/core/styles';
+
+import ModalObj from './components/ModalObj'
+import UserGuide from './components/UserGuide'
 
 const drawerWidth = 180;
 
@@ -58,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(1, 3),
   },
   search: {
     position: 'relative',
@@ -107,6 +104,11 @@ const useStyles = makeStyles((theme) => ({
     width: '107px',
     height: '60px',
     margin: 'auto',
+  },
+  toolbarRight: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'flex-end',
   }
 }));
 
@@ -119,6 +121,7 @@ function App(props) {
   const [userId, setUserId] = useState(null)
   const [isAuthenticating, setIsAuthenticating] = useState(true)
   const [isAuthenticated, userHasAuthenticated] = useState(false)
+  const [openUserGuide, setOpenUserGuide] = useState(false)
 
   useEffect(() => {
     onLoad()
@@ -146,6 +149,10 @@ function App(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const closeUserGuide = () => {
+    setOpenUserGuide(false)
+  }
 
   const drawer = (
     <div>
@@ -248,9 +255,12 @@ function App(props) {
       )}
 
       <main className={classes.content}>
-        {/* {isAuthenticated && (
+        {isAuthenticated && (
           <Toolbar className={classes.toolbar}>
-            <div className={classes.search}>
+            <div className={classes.toolbarRight}>
+              <Button color="inherit" onClick={() => setOpenUserGuide(true)}>User Guide</Button>
+            </div>
+            {/* <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -262,14 +272,23 @@ function App(props) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
               />
-            </div>
+            </div> */}
           </Toolbar>
-        )} */}
+        )}
         <AppContext.Provider
           value={getContextValue}>
           <Routes/>
         </AppContext.Provider>
       </main>
+      
+      <ModalObj
+        openModal={openUserGuide}
+        closeModal={closeUserGuide}
+        width={600}
+      >
+        <UserGuide />
+      </ModalObj>
+
     </div>
     )
   )

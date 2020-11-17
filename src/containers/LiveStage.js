@@ -11,7 +11,8 @@ import { database } from '../libs/firebase'
 import LinkGrid from '../components/LinkGrid'
 import StageGrid from '../components/StageGrid'
 import GoLiveForm from '../components/GoLiveForm'
-import LinkFormModal from '../components/LinkFormModal'
+import ModalObj from '../components/ModalObj'
+import LinkForm from '../components/LinkForm'
 
 const useStyles = makeStyles((theme) => ({
 	paper: {
@@ -31,13 +32,14 @@ function LiveStage(props) {
 	const classes = useStyles()
 	const { userId } = useAppContext()
 
+	const [links, setLinks] = useState({})
+	const [stagedLinks, setStagedLinks] = useState({})
+	const [showStage, setShowStage] = useState(false)
 	const [openModal, setOpenModal] = useState(false)
 	const [streamUrl, setStreamUrl] = useState('')
-	const [showStage, setShowStage] = useState(false)
-	const [stagedLinks, setStagedLinks] = useState({})
-	const [links, setLinks] = useState({})
-	const [linkToEdit, setLinkToEdit] = useState(null)
 	const [activeLink, setActiveLink] = useState('')
+	const [streamMetaId, setStreamMetaId] = useState('')
+	const [linkToEdit, setLinkToEdit] = useState(null)
 
 	const linksRef = database.ref(`links/${userId}`)
 	const streamRef = database.ref(`streams/${userId}/active`)
@@ -122,6 +124,7 @@ function LiveStage(props) {
 
 	function createStreamMeta() {
 		var newMetaRef = streamMetaRef.push()
+		setStreamMetaId(newMetaRef.key)
 		return newMetaRef.set({
 			uid: userId,
 			stream: streamUrl
@@ -136,6 +139,7 @@ function LiveStage(props) {
 
 	function endLive() {
 		modifyStreamRef.remove()
+		database.ref(`stream_meta/${streamMetaId}`).remove()
 	}
 
 	function addLinkToStage(linkId) {
@@ -198,11 +202,16 @@ function LiveStage(props) {
 				showStage={showStage}
 			/>
 
-			<LinkFormModal 
+			<ModalObj 
 				openModal={openModal}
 				closeModal={closeModal}
-				editLink={linkToEdit}
-			/>
+				width={400}
+			>
+				<LinkForm
+						linkObj={linkToEdit}
+						closeModal={closeModal}
+				/>
+			</ModalObj>
 
 		</React.Fragment>
 	)
