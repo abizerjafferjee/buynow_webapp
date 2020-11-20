@@ -54,15 +54,15 @@ function GoLiveForm({ goLive, streamUrl, setStreamUrl, showStage, ...rest }) {
         {!showStage && (
             <div className={classes.container}>
                 <Typography variant="h6" gutterBottom className={classes.text}>
-                    Which Youtube livestream URL would you like the links to be displayed on?
+                    Which Facebook or Youtube livestream URL would you like the links to be displayed on?
                 </Typography>
                 <FormControl className={classes.formControl}>
                     <FormGroup className={classes.formGroup}>
                         <TextField
                             variant='filled'
                             type="text"
-                            label="Youtube Livestream URL"
-                            placeholder="www.youtube.com/jdnadkjnfj"
+                            label="Facebook or Youtube Livestream URL"
+                            placeholder="https://www.facebook.com/327473299/videos/324485000/"
                             margin="dense"
                             required
                             autoFocus
@@ -79,7 +79,7 @@ function GoLiveForm({ goLive, streamUrl, setStreamUrl, showStage, ...rest }) {
                         </Button>
                     </FormGroup>
                     <FormHelperText error={error} className={classes.helperText}>
-                        {error ? 'Not a valid stream URL. Must be a Youtube livestream URL.' : ''}
+                        {error ? 'Not a valid stream URL. Must be a Facebook or Youtube livestream URL.' : ''}
                     </FormHelperText>
                 </FormControl>
             </div>        

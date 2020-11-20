@@ -68,8 +68,8 @@ export default function UserGuide() {
           About this app
         </Typography>
         <Typography variant="body1">
-          The Genie24 app allows you to display your product links to your
-          Youtube livestream viewers as popups in real-time. For your viewers
+          The Genie24 app allows you to display your product links to your Facebook
+          or Youtube livestream viewers as popups in real-time. For your viewers
           to see your product link popups they must have the chrome extension
           installed and activated in their web browser.
         </Typography>
@@ -132,7 +132,7 @@ export default function UserGuide() {
         <Typography variant="body1">
           Every product link you stage will have a "SHOW"
           button. When you click the show button, the product link will
-          pop up on the window for anyone who is watching your Youtube
+          pop up on the window for anyone who is watching your Facebook or Youtube
           livestream and has the Genie24 extension installed and activated.
 
           You can switch the product links in the popup by simply clicking show on

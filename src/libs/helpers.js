@@ -16,7 +16,7 @@ export function useWindowSize() {
 export function validURL(str, stream=false) {
 
   if (stream) {
-    if (!str.includes('youtube.com')) {
+    if (!str.includes('youtube.com') && !str.includes('facebook.com')) {
       return false
     }
   }
