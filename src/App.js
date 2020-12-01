@@ -130,7 +130,7 @@ function App(props) {
   async function onLoad() {
     window.firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        setUserId(user.uid)
+        setUserId(user.uid.toLowerCase())
         userHasAuthenticated(true)
       }
       setIsAuthenticating(false)
@@ -167,7 +167,7 @@ function App(props) {
         <ListItem button>
               <ListItemIcon><AddToPhotosTwoToneIcon /></ListItemIcon>
             <RLink to='/' className={classes.linkStyle}>
-              <ListItemText primary='Live Links' />
+              <ListItemText primary='Live Products' />
             </RLink>
         </ListItem>
         {/* <ListItem button>

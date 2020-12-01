@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function LinkGrid({ links, openLinkForm, editLink, stageLink, showStage, ...rest }) {
+function LinkGrid({ links, openLinkForm, editLink, stageLink, showStage, copyLink, ...rest }) {
 
     const classes = useStyles()
     
@@ -61,6 +61,7 @@ function LinkGrid({ links, openLinkForm, editLink, stageLink, showStage, ...rest
                                 editLink={editLink}
                                 stageLink={stageLink}
                                 showStageButton={showStage}
+                                copyLink={copyLink}
                             />
                         </Grid>
                     ))}

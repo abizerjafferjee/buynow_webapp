@@ -1,17 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 // import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
 import LinkTwoToneIcon from '@material-ui/icons/LinkTwoTone';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
-import Button from '@material-ui/core/Button';
+import { Button, IconButton, Typography, CardActions, CardContent, CardHeader, Card } from '@material-ui/core';
+
 import { shortenText } from '../libs/helpers'
+import { useAppContext } from "../libs/contextLib";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,14 +64,27 @@ const useStyles = makeStyles((theme) => ({
 	content: {
 		marginBottom: '0px',
 		height: '110px'
+	},
+	copy: {
+		color: 'blue',
+		'&:hover': {
+			cursor: 'pointer',
+		}
 	}
 }));
 
-export default function LinkCard({ link, linkId, editLink, stageLink, showStageButton, ...rest }) {
-
+export default function LinkCard({ link, linkId, editLink, stageLink, showStageButton, copyLink, ...rest }) {
+	
 	const classes = useStyles();
+	const { userId } = useAppContext()
 
-  	return (
+	const [openModal, setOpenModal] = useState(false)
+
+	function getGenie24Link() {
+		return `https://app.genie24.ca/${userId}/${link.product_id}`
+	}
+
+  return (
 		<Card className={classes.root}>
 			<div className={classes.imageContainer}>
 				{link.image ? 
@@ -99,7 +108,7 @@ export default function LinkCard({ link, linkId, editLink, stageLink, showStageB
 				{link !== undefined && (
 					<div className={classes.cardSection}>
 						<Typography variant='inherit' className={classes.title}>
-							{shortenText(link.name, 15)}
+							<a href={link.url}>{shortenText(link.name, 15)}</a>
 						</Typography>
 						{link.price !== undefined && (<Typography variant='inherit' className={classes.price}>
 							{link.price}
@@ -111,9 +120,9 @@ export default function LinkCard({ link, linkId, editLink, stageLink, showStageB
 						{shortenText(link.description, 56)}
 					</Typography>
 				)}
-				{link.url !== undefined && (
-					<Typography variant="body2" component="p" noWrap>
-						<LinkTwoToneIcon/> <a href={link.url}>{link.url}</a>
+				{link.product_id !== undefined && (
+					<Typography variant="body1" component="p" className={classes.copy} onClick={()=>copyLink(getGenie24Link())}>
+						<LinkTwoToneIcon/> copy genie24 link
 					</Typography>
 				)}
 			</CardContent>
@@ -126,5 +135,5 @@ export default function LinkCard({ link, linkId, editLink, stageLink, showStageB
 				)}
 			</CardActions>
 		</Card>
-  	);
+  );
 }

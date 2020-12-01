@@ -134,6 +134,7 @@ export default function LinkForm({ linkObj, closeModal, ...rest }) {
 		var linksRef = database.ref(`links/${userId}`)
 		var newLinkRef = linksRef.push()
 		var newLink = {
+			product_id: newLinkRef.key.toLowerCase(),
 			name: name,
 			url: url,
 			price: price,

@@ -40,6 +40,8 @@ function LiveStage(props) {
 	const [activeLink, setActiveLink] = useState('')
 	const [streamMetaId, setStreamMetaId] = useState('')
 	const [linkToEdit, setLinkToEdit] = useState(null)
+	const [openModal2, setOpenModal2] = useState(false)
+	const [gcopyLink, setCopyLink] = useState('')
 
 	const linksRef = database.ref(`links/${userId}`)
 	const streamRef = database.ref(`streams/${userId}/active`)
@@ -172,6 +174,16 @@ function LiveStage(props) {
 		setLinkToEdit(null)
 		setOpenModal(false)	
 	}
+
+	function copyLink(genie24Link) {
+		setCopyLink(genie24Link)
+		setOpenModal2(true)
+	}
+
+	function closeModal2() {
+		setCopyLink('')
+		setOpenModal2(false)
+	}
 	
 	return (
 		<React.Fragment>
@@ -200,6 +212,7 @@ function LiveStage(props) {
 				editLink={editLink}
 				stageLink={addLinkToStage}
 				showStage={showStage}
+				copyLink={copyLink}
 			/>
 
 			<ModalObj 
@@ -211,6 +224,22 @@ function LiveStage(props) {
 						linkObj={linkToEdit}
 						closeModal={closeModal}
 				/>
+			</ModalObj>
+
+			<ModalObj 
+				openModal={openModal2}
+				closeModal={closeModal2}
+				width={400}
+			>
+				<div>
+					<Typography variant="body1">{gcopyLink}</Typography>
+					<Typography variant="body2" style={{backgroundColor: '#ECEFF1'}}>
+						Copy this link into your post on your Facebook page or in the description of your Youtube video.
+						<br></br>
+						The Genie24 chrome extension will automatically detect this link and show a popup of the product
+						to visitors of those pages.
+					</Typography>
+				</div>
 			</ModalObj>
 
 		</React.Fragment>

@@ -3,7 +3,7 @@
     "links": {
       "$uid": {
         ".read": true,
-        ".write": "auth.uid === $uid"  
+        ".write": "auth.uid.toLowerCase() === $uid || auth.uid === $uid"
       }
     },
     "stream_meta": {
@@ -13,7 +13,7 @@
     "streams": {
       "$uid": {
         ".read": true,
-        ".write": "auth.uid === $uid"
+        ".write": "auth.uid.toLowerCase() === $uid || auth.uid === $uid"
       }
     }
   }
